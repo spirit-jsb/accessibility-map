@@ -1,8 +1,24 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+import LaunchView from './views/LaunchView.vue'
+
+// 控制显示状态的响应式变量
+const showLaunch = ref(true)
+
+// 组件挂载后启动定时器
+onMounted(() => {
+  // setTimeout(() => {
+  //   showLaunch.value = false
+  // }, 3000) // 3秒后切换
+})
 </script>
 
 <template>
-  <div class="app">
+  <!-- 启动页面 -->
+  <LaunchView v-if="showLaunch" />
+  
+  <!-- 主页面 -->
+  <div v-else class="app">
     <h1 class="title">无障碍地图</h1>
   </div>
 </template>
