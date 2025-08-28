@@ -1,12 +1,29 @@
 <script setup>
 // 主页面组件
+import { ref } from 'vue'
 import logoSvg from '../assets/images/logo.svg'
 import visualMapIcon from '../assets/images/visual-map.svg'
 import voiceMapIcon from '../assets/images/voice-map.svg'
+import VisualMapView from './VisualMapView.vue'
+
+// 当前显示的页面状态
+const currentView = ref('home')
+
+// 跳转到视觉地图页面
+const goToVisualMap = () => {
+  currentView.value = 'visualMap'
+}
+
+// 跳转到语音地图页面
+const goToVoiceMap = () => {
+  // 语音地图功能待实现
+  console.log('跳转到语音地图')
+}
 </script>
 
 <template>
-  <div class="home-container">
+  <!-- 主页面 -->
+  <div v-if="currentView === 'home'" class="home-container">
     <div class="content">
       <!-- Logo 区域 -->
       <div class="logo-section">
@@ -15,14 +32,14 @@ import voiceMapIcon from '../assets/images/voice-map.svg'
       
       <!-- 功能按钮区域 -->
       <div class="function-buttons">
-        <div class="button-item">
+        <div class="button-item" @click="goToVisualMap">
           <div class="function-btn">
             <img :src="visualMapIcon" alt="视觉地图" class="btn-icon" />
           </div>
           <span class="btn-label">视觉地图</span>
         </div>
         
-        <div class="button-item">
+        <div class="button-item" @click="goToVoiceMap">
           <div class="function-btn">
             <img :src="voiceMapIcon" alt="语音地图" class="btn-icon" />
           </div>
@@ -31,6 +48,9 @@ import voiceMapIcon from '../assets/images/voice-map.svg'
       </div>
     </div>
   </div>
+
+  <!-- 视觉地图页面 -->
+  <VisualMapView v-else-if="currentView === 'visualMap'" @back="currentView = 'home'" />
 </template>
 
 <style scoped>
