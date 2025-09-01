@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "created_at": "2025-08-28T00:00:00+08:00",
+  "updated_at": "2025-08-29T00:00:00+08:00",
+  "data": {
+    "facility_categories": [
+      {
+        "id": "accessibility_access_facilities",
+        "name": "无障碍通行设施",
+        "description": "",
+        "order": 1,
+        "is_active": true
+      },
+      {
+        "id": "accessibility_service_facilities",
+        "name": "无障碍服务设施",
+        "description": "",
+        "order": 2,
+        "is_active": true
+      },
+      {
+        "id": "accessibility_information_facilities",
+        "name": "无障碍信息交流设施",
+        "description": "",
+        "order": 3,
+        "is_active": true
+      }
+    ]
+  }
+}

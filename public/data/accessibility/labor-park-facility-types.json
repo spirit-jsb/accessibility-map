@@ -1,0 +1,97 @@
+{
+  "version": "1.0.0",
+  "created_at": "2025-08-28T00:00:00+08:00",
+  "updated_at": "2025-08-29T00:00:00+08:00",
+  "data": {
+    "facility_types": [
+      {
+        "id": "entrance_exit",
+        "category_id": "accessibility_access_facilities",
+        "name": "出入口",
+        "description": "",
+        "order": 1,
+        "is_active": true,
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": "assistive_aids",
+        "category_id": "accessibility_service_facilities",
+        "name": "爱心共享辅具空间",
+        "description": "",
+        "order": 2,
+        "is_active": true,
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": "park_speech_guide",
+        "category_id": "accessibility_information_facilities",
+        "name": "公园全景智慧语音导览图",
+        "description": "",
+        "order": 3,
+        "is_active": true,
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": "love_station",
+        "category_id": "accessibility_service_facilities",
+        "name": "爱心驿站",
+        "description": "",
+        "order": 4,
+        "is_active": true,
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": "speech_guide_device",
+        "category_id": "accessibility_information_facilities",
+        "name": "语音介绍装置",
+        "description": "",
+        "order": 5,
+        "is_active": true,
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": "plant_braille_sign",
+        "category_id": "accessibility_information_facilities",
+        "name": "植物科普盲文牌",
+        "description": "",
+        "order": 6,
+        "is_active": true,
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": "info_corridor",
+        "category_id": "accessibility_information_facilities",
+        "name": "宣传长廊",
+        "description": "",
+        "order": 7,
+        "is_active": true,
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": "accessible_toilet",
+        "category_id": "accessibility_access_facilities",
+        "name": "无障碍卫生间",
+        "description": "",
+        "order": 8,
+        "is_active": true,
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "entrance_exit": {
+    "icon": "entrance-exit.svg",
+    "alt": "出入口",
+    "label": "出入口设施"
+  },
+  "assistive_aids": {
+    "icon": "assistive-aids.svg",
+    "alt": "爱心共享辅具空间",
+    "label": "爱心共享辅具空间"
+  },
+  "park_speech_guide": {
+    "icon": "park-speech-guide.svg",
+    "alt": "公园全景智慧语音导览图",
+    "label": "公园全景智慧语音导览图"
+  },
+  "love_station": {
+    "icon": "love-station.svg",
+    "alt": "爱心驿站",
+    "label": "爱心驿站"
+  },
+  "speech_guide_device": {
+    "icon": "speech-guide-device.svg",
+    "alt": "语音介绍装置",
+    "label": "语音介绍装置"
+  },
+  "plant_braille_sign": {
+    "icon": "plant-braille-sign.svg",
+    "alt": "植物科普盲文牌",
+    "label": "植物科普盲文牌"
+  },
+  "info_corridor": {
+    "icon": "info-corridor.svg",
+    "alt": "宣传长廊",
+    "label": "宣传长廊"
+  },
+  "accessible_toilet": {
+    "icon": "accessible-toilet.svg",
+    "alt": "无障碍卫生间",
+    "label": "无障碍卫生间"
+  }
+}
