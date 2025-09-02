@@ -10,6 +10,7 @@ export const API_CONFIG = {
       FACILITY_CATEGORIES: "/api/accessibility/facility-categories",
       FACILITY_TYPES: "/api/accessibility/facility-types",
       FACILITY_ICON_MAPPINGS: "/api/accessibility/facility-icon-mappings",
+      FACILITIES: "/api/accessibility/facilities",
     },
     HEADERS: {
       "Content-Type": "application/json",
@@ -18,13 +19,14 @@ export const API_CONFIG = {
   },
 
   STATIC: {
-    BASE_PATH: "/public/data",
+    BASE_PATH: "/data",
     ENDPOINTS: {
       FACILITY_CATEGORIES: "/accessibility/facility-categories.json",
       LABOR_PARK_FACILITY_TYPES:
         "/accessibility/labor-park-facility-types.json",
       LABOR_PARK_FACILITY_ICON_MAPPINGS:
         "/accessibility/labor-park-facility-icon-mappings.json",
+      LABOR_PARK_FACILITIES: "/accessibility/labor-park-facilities.json",
     },
   },
 
@@ -35,6 +37,7 @@ export const API_CONFIG = {
       FACILITY_CATEGORIES: "facility_categories",
       LABOR_PARK_FACILITY_TYPES: "labor_park_facility_types",
       LABOR_PARK_FACILITY_ICON_MAPPINGS: "labor_park_facility_icon_mappings",
+      LABOR_PARK_FACILITIES: "labor_park_facilities",
     },
   },
 

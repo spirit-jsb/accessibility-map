@@ -78,6 +78,30 @@ class AccessibilityService {
     }
   }
 
+  async getFacilities(useCache = true) {
+    try {
+      const data = await this.dataLoader.loadData(
+        API_CONFIG.API.ENDPOINTS.FACILITIES,
+        API_CONFIG.STATIC.ENDPOINTS.LABOR_PARK_FACILITIES,
+        API_CONFIG.CACHE.KEYS.LABOR_PARK_FACILITIES,
+        useCache
+      );
+
+      return {
+        success: true,
+        data: data,
+        message: "Facilities loaded successfully",
+      };
+    } catch (error) {
+      console.error("Failed to load facilities:", error);
+      return {
+        success: false,
+        data: null,
+        message: `Failed to load facilities: ${error.message}`,
+      };
+    }
+  }
+
   setDataSource(dataSource) {
     this.dataLoader.setDataSource(dataSource);
   }
