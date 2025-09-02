@@ -1,0 +1,202 @@
+{
+  "version": "1.0.0",
+  "created_at": "2025-09-02T00:00:00+08:00",
+  "updated_at": "2025-09-02T00:00:00+08:00",
+  "data": {
+    "facilities": [
+      {
+        "id": 1,
+        "type_id": "entrance_exit",
+        "category_id": "accessibility_access_facilities",
+        "name": "劳动公园南门",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2301, "longitude": 121.4737 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 2,
+        "type_id": "entrance_exit",
+        "category_id": "accessibility_access_facilities",
+        "name": "劳动公园东门",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2303, "longitude": 121.472 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 3,
+        "type_id": "entrance_exit",
+        "category_id": "accessibility_access_facilities",
+        "name": "劳动公园北门",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2298, "longitude": 121.473 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 4,
+        "type_id": "assistive_aids",
+        "category_id": "accessibility_service_facilities",
+        "name": "爱心共享辅具空间",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2312, "longitude": 121.4728 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 5,
+        "type_id": "park_speech_guide",
+        "category_id": "accessibility_information_facilities",
+        "name": "公园全景智慧语音导览图",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2309, "longitude": 121.4735 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 6,
+        "type_id": "love_station",
+        "category_id": "accessibility_service_facilities",
+        "name": "爱心驿站",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2325, "longitude": 121.4736 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 7,
+        "type_id": "speech_guide_device",
+        "category_id": "accessibility_information_facilities",
+        "name": "语音介绍装置 A",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2327, "longitude": 121.474 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 8,
+        "type_id": "speech_guide_device",
+        "category_id": "accessibility_information_facilities",
+        "name": "语音介绍装置 B",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.233, "longitude": 121.4743 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 9,
+        "type_id": "speech_guide_device",
+        "category_id": "accessibility_information_facilities",
+        "name": "语音介绍装置 C",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2333, "longitude": 121.4746 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 10,
+        "type_id": "plant_braille_sign",
+        "category_id": "accessibility_information_facilities",
+        "name": "植物科普盲文牌 A",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2305, "longitude": 121.474 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 11,
+        "type_id": "plant_braille_sign",
+        "category_id": "accessibility_information_facilities",
+        "name": "植物科普盲文牌 B",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2307, "longitude": 121.4745 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 12,
+        "type_id": "plant_braille_sign",
+        "category_id": "accessibility_information_facilities",
+        "name": "植物科普盲文牌 C",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.231, "longitude": 121.4748 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+
+      {
+        "id": 13,
+        "type_id": "info_corridor",
+        "category_id": "accessibility_information_facilities",
+        "name": "宣传长廊",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2315, "longitude": 121.4732 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 14,
+        "type_id": "accessible_toilet",
+        "category_id": "accessibility_access_facilities",
+        "name": "无障碍卫生间 A",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2317, "longitude": 121.4725 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 15,
+        "type_id": "accessible_toilet",
+        "category_id": "accessibility_access_facilities",
+        "name": "无障碍卫生间 B",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.232, "longitude": 121.4729 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 16,
+        "type_id": "accessible_toilet",
+        "category_id": "accessibility_access_facilities",
+        "name": "无障碍卫生间 C",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 31.2323, "longitude": 121.4733 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      }
+    ]
+  }
+}
