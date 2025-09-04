@@ -28,7 +28,8 @@ const functionButtons = computed(() => {
 
       return {
         id: facilityType.id,
-        icon: `/src/assets/images/${iconMapping.icon}`,
+        icon: new URL(`../assets/images/${iconMapping.icon}`, import.meta.url)
+          .href,
         alt: iconMapping.alt,
         label: iconMapping.label,
         description: facilityType.description,
