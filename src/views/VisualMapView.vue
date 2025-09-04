@@ -4,7 +4,7 @@ import { ref, onMounted, computed } from "vue";
 import navigationBack from "../assets/images/navigation-back.svg";
 import { accessibilityService } from "../services/accessibilityService.js";
 
-const emit = defineEmits(["back"]);
+const emit = defineEmits(["back", "navigateToVisualFacilityList"]);
 
 const facilityTypes = ref([]);
 const facilityIconMappings = ref({});
@@ -79,6 +79,8 @@ const handleFunctionClick = (button) => {
     label: button.label,
     description: button.description,
   });
+
+  emit("navigateToVisualFacilityList", button.id);
 };
 
 onMounted(() => {

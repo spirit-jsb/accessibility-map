@@ -1,12 +1,14 @@
 <script setup>
 import { ref } from "vue";
 
+import VisualFacilityListView from "./VisualFacilityListView.vue";
 import VisualMapView from "./VisualMapView.vue";
 import logo from "../assets/images/logo.svg";
 import speechMap from "../assets/images/speech-map.svg";
 import visualMap from "../assets/images/visual-map.svg";
 
 const currentView = ref("home");
+const selectedFacilityTypeId = ref(null);
 
 const goToVisualMap = () => {
   currentView.value = "visualMap";
@@ -14,6 +16,15 @@ const goToVisualMap = () => {
 
 const goToVoiceMap = () => {
   console.log("跳转到语音地图");
+};
+
+const handleNavigateToVisualFacilityList = (facilityTypeId) => {
+  selectedFacilityTypeId.value = facilityTypeId;
+  currentView.value = "visualFacilityList";
+};
+
+const handleBackToVisualMap = () => {
+  currentView.value = "visualMap";
 };
 </script>
 
@@ -45,6 +56,13 @@ const goToVoiceMap = () => {
   <VisualMapView
     v-else-if="currentView === 'visualMap'"
     @back="currentView = 'home'"
+    @navigateToVisualFacilityList="handleNavigateToVisualFacilityList"
+  />
+
+  <VisualFacilityListView
+    v-else-if="currentView === 'visualFacilityList'"
+    :facility-type-id="selectedFacilityTypeId"
+    @back="handleBackToVisualMap"
   />
 </template>
 
