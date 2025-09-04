@@ -14,7 +14,7 @@ const goToVisualMap = () => {
   currentView.value = "visualMap";
 };
 
-const goToVoiceMap = () => {
+const goToSpeechMap = () => {
   console.log("跳转到语音地图");
 };
 
@@ -29,25 +29,25 @@ const handleBackToVisualMap = () => {
 </script>
 
 <template>
-  <div v-if="currentView === 'home'" class="home-container">
+  <div v-if="currentView === 'home'" class="home-screen">
     <div class="content">
       <div class="logo-section">
-        <img :src="logo" alt="无障碍地图" class="logo" />
+        <img :src="logo" alt="中国残疾人联合会" class="logo" />
       </div>
 
-      <div class="function-buttons">
+      <div class="function-buttons-section">
         <div class="button-item" @click="goToVisualMap">
-          <div class="function-btn">
-            <img :src="visualMap" alt="视觉地图" class="btn-icon" />
+          <div class="button-icon-wrapper">
+            <img :src="visualMap" alt="视觉地图" class="button-icon" />
           </div>
-          <span class="btn-label">视觉地图</span>
+          <span class="button-name">视觉地图</span>
         </div>
 
-        <div class="button-item" @click="goToVoiceMap">
-          <div class="function-btn">
-            <img :src="speechMap" alt="语音地图" class="btn-icon" />
+        <div class="button-item" @click="goToSpeechMap">
+          <div class="button-icon-wrapper">
+            <img :src="speechMap" alt="语音地图" class="button-icon" />
           </div>
-          <span class="btn-label">语音地图</span>
+          <span class="button-name">语音地图</span>
         </div>
       </div>
     </div>
@@ -67,26 +67,23 @@ const handleBackToVisualMap = () => {
 </template>
 
 <style scoped>
-.home-container {
+.home-screen {
   width: 100%;
   min-height: 100vh;
   background-color: #121212;
-  color: #ffffff;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 0 40px;
-  position: relative;
 }
 
 .logo-section {
-  margin: 40px 0 48px;
+  margin: 40px 0px 0px;
 }
 
 .logo {
@@ -94,7 +91,7 @@ const handleBackToVisualMap = () => {
   height: 68px;
 }
 
-.function-buttons {
+.function-buttons-section {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -111,87 +108,27 @@ const handleBackToVisualMap = () => {
   gap: 12px;
 }
 
-.function-btn {
-  width: 80px;
-  height: 80px;
+.button-icon-wrapper {
   border: 2.5px solid #ffffff;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 8px 12px;
 }
 
-.btn-icon {
+.button-icon {
   width: 56px;
   height: 56px;
+  margin: 8px 12px;
 }
 
-.btn-label {
-  font-size: 20px;
+.button-name {
   font-weight: bold;
-  font-style: normal;
+  font-size: 20px;
   color: #ffffff;
-}
-
-@media (max-width: 480px) {
-  .content {
-    padding: 0 0 30px;
-  }
-  .logo {
-    width: 56px;
-    height: 56px;
-  }
-  .logo-section {
-    margin: 32px 0 40px;
-  }
-  .function-buttons {
-    gap: 40px;
-  }
-  .function-btn {
-    width: 70px;
-    height: 70px;
-  }
-  .btn-icon {
-    width: 32px;
-    height: 32px;
-  }
-  .btn-label {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 375px) {
-  .logo {
-    width: 48px;
-    height: 48px;
-  }
-  .logo-section {
-    margin: 28px 0 36px;
-  }
-  .function-buttons {
-    gap: 30px;
-  }
-  .function-btn {
-    width: 60px;
-    height: 60px;
-  }
-  .btn-icon {
-    width: 28px;
-    height: 28px;
-  }
-  .btn-label {
-    font-size: 13px;
-  }
-}
-
-@media (max-height: 600px) {
-  .content {
-    padding: 0 0 20px;
-  }
-  .logo-section {
-    margin: 24px 0 32px;
-  }
+  text-align: center;
+  font-style: normal;
+  text-transform: none;
 }
 </style>
