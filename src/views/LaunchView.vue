@@ -3,45 +3,43 @@ import logo from "../assets/images/logo.svg";
 </script>
 
 <template>
-  <div class="launch-container">
+  <div class="launch-screen">
     <div class="content">
       <div class="logo-section">
-        <img :src="logo" alt="无障碍地图" class="logo" />
+        <img :src="logo" alt="中国残疾人联合会" class="logo" />
       </div>
 
-      <div class="text-content">
-        <h1 class="title">无障碍设施建设问题</h1>
-        <h2 class="subtitle">是一个国家和社会文明的标志</h2>
-        <p class="emphasis">我们要高度重视</p>
+      <div class="text-section">
+        <p class="small-text">无障碍设施建设问题</p>
+        <p class="medium-text">是一个国家和社会文明的标志</p>
+        <p class="large-text">我们要高度重视</p>
       </div>
     </div>
 
-    <footer class="footer">
+    <div class="footer">
       <p class="copyright">无障碍地图网站 © 2025</p>
-    </footer>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.launch-container {
+.launch-screen {
   width: 100%;
   min-height: 100vh;
   background-color: #121212;
-  color: #ffffff;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 0 40px;
 }
 
 .logo-section {
-  margin: 40px 0 48px;
+  margin: 40px 0px 0px;
 }
 
 .logo {
@@ -49,97 +47,47 @@ import logo from "../assets/images/logo.svg";
   height: 68px;
 }
 
-.text-content {
-  width: 100%;
-  padding: 0 25px;
+.text-section {
+  margin: 48px 25px 0px 25px;
 }
 
-.title,
-.subtitle,
-.emphasis {
+.small-text,
+.medium-text,
+.large-text {
   font-weight: bold;
-  font-style: normal;
+  color: #ffffff;
   text-align: left;
-  margin: 0 0 8px 0;
+  font-style: normal;
+  text-transform: none;
+  margin: 0px;
 }
 
-.title {
+.small-text {
   font-size: 20px;
+  margin-bottom: 6px;
 }
 
-.subtitle {
+.medium-text {
   font-size: 25px;
+  margin-bottom: 5px;
 }
 
-.emphasis {
+.large-text {
   font-size: 30px;
-  margin-bottom: 0;
 }
 
 .footer {
-  padding: 0 20px 16px;
+  margin: auto 0px 16px 0px;
   text-align: center;
 }
 
 .copyright {
-  font-size: 14px;
   font-weight: bold;
-  margin: 0;
-}
-
-@media (max-width: 480px) {
-  .content {
-    padding: 0 0 30px;
-  }
-  .logo {
-    width: 56px;
-    height: 56px;
-  }
-  .logo-section {
-    margin: 32px 0 40px;
-  }
-  .text-content {
-    padding: 0 20px;
-  }
-  .title {
-    font-size: 18px;
-  }
-  .subtitle {
-    font-size: 22px;
-  }
-  .emphasis {
-    font-size: 26px;
-  }
-}
-
-@media (max-width: 375px) {
-  .logo {
-    width: 48px;
-    height: 48px;
-  }
-  .logo-section {
-    margin: 28px 0 36px;
-  }
-  .text-content {
-    padding: 0 16px;
-  }
-  .title {
-    font-size: 16px;
-  }
-  .subtitle {
-    font-size: 20px;
-  }
-  .emphasis {
-    font-size: 24px;
-  }
-}
-
-@media (max-height: 600px) {
-  .content {
-    padding: 0 0 20px;
-  }
-  .logo-section {
-    margin: 24px 0 32px;
-  }
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+  font-style: normal;
+  text-transform: none;
+  margin: 0px;
 }
 </style>
