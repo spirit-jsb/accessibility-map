@@ -61,7 +61,7 @@ const loadFacilityData = async () => {
     facilityIconMappings.value = facilityIconMappingsResult.data || {};
 
     console.log("Data loaded successfully:", {
-      facilities: facilityTypes.value.length,
+      facilityTypes: facilityTypes.value.length,
       icons: Object.keys(facilityIconMappings.value).length,
     });
   } catch (error) {
