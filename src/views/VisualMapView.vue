@@ -153,19 +153,16 @@ onMounted(() => {
   grid-template-columns: repeat(4, 1fr);
   gap: 12px 0;
   margin: 12px 0px calc(env(safe-area-inset-bottom, 34px) + 12px) 0px;
-  width: 100%;
 }
 
 .bottom-function-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
 }
 
 .bottom-function-item-icon {
   display: flex;
-  justify-content: center;
   align-items: center;
   margin-bottom: 4px;
 }
