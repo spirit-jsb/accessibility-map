@@ -4,11 +4,11 @@ export const ENV_CONFIG = {
   current: getCurrentEnv(),
   isDevelopment: getCurrentEnv() === 'development',
   isProduction: getCurrentEnv() === 'production',
-  isLocal: getCurrentEnv() === 'local',
+  isTest: getCurrentEnv() === 'test',
 
   app: {
     title: getEnvVar('VITE_APP_TITLE', '无障碍地图网站'),
-    version: getEnvVar('VITE_APP_VERSION', '1.0.0'),
+    version: getEnvVar('VITE_APP_VERSION', '0.0.0'),
     env: getCurrentEnv(),
   },
 

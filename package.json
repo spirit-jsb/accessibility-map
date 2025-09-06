@@ -5,13 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode development",
-    "dev:local": "vite --mode local",
+    "dev:test": "vite --mode test",
+    "build:test": "vite build --mode test",
     "build": "vite build --mode production",
-    "build:dev": "vite build --mode development",
-    "build:prod": "vite build --mode production",
-    "preview": "vite preview",
-    "preview:dev": "vite preview --mode development",
-    "preview:prod": "vite preview --mode production"
+    "preview": "vite preview"
   },
   "dependencies": {
     "vue": "^3.5.18"
