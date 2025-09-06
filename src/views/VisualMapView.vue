@@ -27,7 +27,7 @@ const bottomFunctionItems = computed(() => {
         id: facilityType.id,
         icon: new URL(`../assets/images/${iconMapping.icon}`, import.meta.url).href,
         alt: iconMapping.alt,
-        label: iconMapping.label,
+        name: facilityType.name,
         description: facilityType.description,
       }
     })
@@ -101,7 +101,7 @@ onMounted(() => {
           @click="handleBottomFunctionItemClick(item)"
         >
           <img :src="item.icon" :alt="item.alt" class="bottom-function-item-icon" />
-          <span class="bottom-function-item-label">{{ item.label }}</span>
+          <span class="bottom-function-item-name">{{ item.name }}</span>
         </div>
       </div>
     </div>
@@ -167,7 +167,7 @@ onMounted(() => {
   margin-bottom: 4px;
 }
 
-.bottom-function-item-label {
+.bottom-function-item-name {
   color: #121212;
   font-style: normal;
   font-weight: 500;
