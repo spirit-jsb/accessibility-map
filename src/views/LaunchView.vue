@@ -1,93 +1,79 @@
 <script setup>
-import logo from "../assets/images/logo.svg";
+import logo from '../assets/images/logo.svg'
 </script>
 
 <template>
-  <div class="launch-screen">
-    <div class="content">
-      <div class="logo-section">
-        <img :src="logo" alt="中国残疾人联合会" class="logo" />
-      </div>
+  <div class="launch-view">
+    <div class="content-container-view">
+      <img :src="logo" alt="中国残疾人联合会" class="logo" />
 
-      <div class="text-section">
-        <p class="small-text">无障碍设施建设问题</p>
-        <p class="medium-text">是一个国家和社会文明的标志</p>
-        <p class="large-text">我们要高度重视</p>
+      <div class="text-container-view">
+        <p class="small-text-item">无障碍设施建设问题</p>
+        <p class="medium-text-item">是一个国家和社会文明的标志</p>
+        <p class="large-text-item">我们要高度重视</p>
       </div>
     </div>
 
-    <div class="footer">
-      <p class="copyright">无障碍地图网站 © 2025</p>
-    </div>
+    <p class="copyright-view">无障碍地图网站 © 2025</p>
   </div>
 </template>
 
 <style scoped>
-.launch-screen {
-  width: 100%;
-  min-height: 100vh;
-  background-color: #121212;
+.launch-view {
   display: flex;
   flex-direction: column;
+  background-color: #121212;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
 }
 
-.content {
+.content-container-view {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.logo-section {
-  margin: 40px 0px 0px;
-}
-
 .logo {
+  margin: 40px 0px 0px;
   width: 68px;
   height: 68px;
 }
 
-.text-section {
+.text-container-view {
   margin: 48px 25px 0px 25px;
 }
 
-.small-text,
-.medium-text,
-.large-text {
-  font-weight: bold;
-  color: #ffffff;
-  text-align: left;
-  font-style: normal;
-  text-transform: none;
+.small-text-item,
+.medium-text-item,
+.large-text-item {
   margin: 0px;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: bold;
+  text-align: left;
 }
 
-.small-text {
-  font-size: 20px;
+.small-text-item {
   margin-bottom: 6px;
+  font-size: 20px;
 }
 
-.medium-text {
-  font-size: 25px;
+.medium-text-item {
   margin-bottom: 5px;
+  font-size: 25px;
 }
 
-.large-text {
+.large-text-item {
   font-size: 30px;
 }
 
-.footer {
-  margin: auto 0px 16px 0px;
-  text-align: center;
-}
-
-.copyright {
+.copyright-view {
+  margin: auto auto calc(env(safe-area-inset-bottom, 34px) + 16px) auto;
+  color: #ffffff;
+  font-style: normal;
   font-weight: bold;
   font-size: 14px;
-  color: #ffffff;
   text-align: center;
-  font-style: normal;
-  text-transform: none;
-  margin: 0px;
 }
 </style>
