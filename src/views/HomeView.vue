@@ -1,53 +1,51 @@
 <script setup>
-import { ref } from "vue";
+import VisualFacilityListView from './VisualFacilityListView.vue'
+import VisualMapView from './VisualMapView.vue'
+import { ref } from 'vue'
 
-import VisualFacilityListView from "./VisualFacilityListView.vue";
-import VisualMapView from "./VisualMapView.vue";
-import logo from "../assets/images/logo.svg";
-import speechMap from "../assets/images/speech-map.svg";
-import visualMap from "../assets/images/visual-map.svg";
+import logo from '../assets/images/logo.svg'
+import speechMap from '../assets/images/speech-map.svg'
+import visualMap from '../assets/images/visual-map.svg'
 
-const currentView = ref("home");
-const selectedFacilityTypeId = ref(null);
+const currentView = ref('home')
+const selectedFacilityTypeId = ref(null)
 
-const goToVisualMap = () => {
-  currentView.value = "visualMap";
-};
+const handleNavigateToVisualMap = () => {
+  currentView.value = 'visualMap'
+}
 
-const goToSpeechMap = () => {
-  console.log("跳转到语音地图");
-};
+const handleNavigateToSpeechMap = () => {
+  console.log('跳转到语音地图')
+}
 
 const handleNavigateToVisualFacilityList = (facilityTypeId) => {
-  selectedFacilityTypeId.value = facilityTypeId;
-  currentView.value = "visualFacilityList";
-};
+  selectedFacilityTypeId.value = facilityTypeId
+  currentView.value = 'visualFacilityList'
+}
 
 const handleBackToVisualMap = () => {
-  currentView.value = "visualMap";
-};
+  currentView.value = 'visualMap'
+}
 </script>
 
 <template>
-  <div v-if="currentView === 'home'" class="home-screen">
-    <div class="content">
-      <div class="logo-section">
-        <img :src="logo" alt="中国残疾人联合会" class="logo" />
-      </div>
+  <div v-if="currentView === 'home'" class="home-view">
+    <div class="content-container-view">
+      <img :src="logo" alt="中国残疾人联合会" class="logo" />
 
-      <div class="function-buttons-section">
-        <div class="button-item" @click="goToVisualMap">
-          <div class="button-icon-wrapper">
-            <img :src="visualMap" alt="视觉地图" class="button-icon" />
+      <div class="function-container-view">
+        <div class="function-item" @click="handleNavigateToVisualMap">
+          <div class="function-item-icon-wrapper">
+            <img :src="visualMap" alt="视觉地图" class="function-item-icon" />
           </div>
-          <span class="button-name">视觉地图</span>
+          <span class="function-item-label">视觉地图</span>
         </div>
 
-        <div class="button-item" @click="goToSpeechMap">
-          <div class="button-icon-wrapper">
-            <img :src="speechMap" alt="语音地图" class="button-icon" />
+        <div class="function-item" @click="handleNavigateToSpeechMap">
+          <div class="function-item-icon-wrapper">
+            <img :src="speechMap" alt="语音地图" class="function-item-icon" />
           </div>
-          <span class="button-name">语音地图</span>
+          <span class="function-item-label">语音地图</span>
         </div>
       </div>
     </div>
@@ -67,68 +65,62 @@ const handleBackToVisualMap = () => {
 </template>
 
 <style scoped>
-.home-screen {
-  width: 100%;
-  min-height: 100vh;
-  background-color: #121212;
+.home-view {
   display: flex;
   flex-direction: column;
+  background-color: #121212;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
 }
 
-.content {
+.content-container-view {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.logo-section {
-  margin: 40px 0px 0px;
-}
-
 .logo {
+  margin: 40px 0px 0px;
   width: 68px;
   height: 68px;
 }
 
-.function-buttons-section {
+.function-container-view {
+  display: flex;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  gap: 72px;
   align-items: center;
+  gap: 72px;
+  transform: translate(-50%, -50%);
 }
 
-.button-item {
+.function-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
 }
 
-.button-icon-wrapper {
-  border: 2.5px solid #ffffff;
-  border-radius: 8px;
+.function-item-icon-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  border: 2.5px solid #ffffff;
+  border-radius: 8px;
 }
 
-.button-icon {
+.function-item-icon {
+  margin: 8px 12px;
   width: 56px;
   height: 56px;
-  margin: 8px 12px;
 }
 
-.button-name {
+.function-item-label {
+  color: #ffffff;
+  font-style: normal;
   font-weight: bold;
   font-size: 20px;
-  color: #ffffff;
   text-align: center;
-  font-style: normal;
-  text-transform: none;
 }
 </style>
