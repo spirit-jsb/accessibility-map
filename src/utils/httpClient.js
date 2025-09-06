@@ -1,60 +1,60 @@
-import { API_CONFIG } from "../configs/apiConfig.js";
+import { API_CONFIG } from '../configs/apiConfig.js'
 
 class HttpClient {
   constructor() {
-    this.baseURL = API_CONFIG.BASE_URL;
-    this.timeout = API_CONFIG.TIMEOUT;
+    this.baseURL = API_CONFIG.BASE_URL
+    this.timeout = API_CONFIG.TIMEOUT
   }
 
   async request(url, options = {}) {
     const config = {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         ...options.headers,
       },
       ...options,
-    };
+    }
 
-    const fullURL = this.baseURL ? `${this.baseURL}${url}` : url;
+    const fullURL = this.baseURL ? `${this.baseURL}${url}` : url
 
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), this.timeout);
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), this.timeout)
 
       const response = await fetch(fullURL, {
         ...config,
         signal: controller.signal,
-      });
+      })
 
-      clearTimeout(timeoutId);
+      clearTimeout(timeoutId)
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
 
-      return await response.json();
+      return await response.json()
     } catch (error) {
-      if (error.name === "AbortError") {
-        throw new Error("Request timeout");
+      if (error.name === 'AbortError') {
+        throw new Error('Request timeout')
       }
-      throw error;
+      throw error
     }
   }
 
   async get(url, options = {}) {
-    return this.request(url, { ...options, method: "GET" });
+    return this.request(url, { ...options, method: 'GET' })
   }
 
   async post(url, data, options = {}) {
     return this.request(url, {
       ...options,
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
-    });
+    })
   }
 }
 
-export const httpClient = new HttpClient();
+export const httpClient = new HttpClient()
 
-export default HttpClient;
+export default HttpClient

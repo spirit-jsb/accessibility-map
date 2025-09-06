@@ -1,25 +1,25 @@
-import { createApp } from "vue";
+import App from './App.vue'
+import { createApp } from 'vue'
 
-import App from "./App.vue";
-import { configManager } from "./utils/configManager";
-import "./assets/styles/style.css";
+import './assets/styles/style.css'
+import { configManager } from './utils/configManager'
 
 const initializeApp = async () => {
   try {
-    const configInitialized = await configManager.initialize();
+    const configInitialized = await configManager.initialize()
 
     if (!configInitialized) {
-      console.error("❌ Failed to initialize config");
+      console.error('❌ Failed to initialize config')
     }
 
-    const app = createApp(App);
-    app.mount("#app");
+    const app = createApp(App)
+    app.mount('#app')
 
-    console.log("✅ Application started successfully");
+    console.log('✅ Application started successfully')
   } catch (error) {
-    console.error("❌ Failed to start application:", error);
-    createApp(App).mount("#app");
+    console.error('❌ Failed to start application:', error)
+    createApp(App).mount('#app')
   }
-};
+}
 
-initializeApp();
+initializeApp()

@@ -1,9 +1,9 @@
-import { API_CONFIG } from "../configs/apiConfig.js";
-import { dataLoader } from "../utils/dataLoader.js";
+import { API_CONFIG } from '../configs/apiConfig.js'
+import { dataLoader } from '../utils/dataLoader.js'
 
 class AccessibilityService {
   constructor() {
-    this.dataLoader = dataLoader;
+    this.dataLoader = dataLoader
   }
 
   async getFacilityCategories(useCache = true) {
@@ -12,21 +12,21 @@ class AccessibilityService {
         API_CONFIG.API.ENDPOINTS.FACILITY_CATEGORIES,
         API_CONFIG.STATIC.ENDPOINTS.FACILITY_CATEGORIES,
         API_CONFIG.CACHE.KEYS.FACILITY_CATEGORIES,
-        useCache
-      );
+        useCache,
+      )
 
       return {
         success: true,
         data: data,
-        message: "Facility categories loaded successfully",
-      };
+        message: 'Facility categories loaded successfully',
+      }
     } catch (error) {
-      console.error("Failed to load facility categories:", error);
+      console.error('Failed to load facility categories:', error)
       return {
         success: false,
         data: null,
         message: `Failed to load facility categories: ${error.message}`,
-      };
+      }
     }
   }
 
@@ -36,21 +36,21 @@ class AccessibilityService {
         API_CONFIG.API.ENDPOINTS.FACILITY_TYPES,
         API_CONFIG.STATIC.ENDPOINTS.LABOR_PARK_FACILITY_TYPES,
         API_CONFIG.CACHE.KEYS.LABOR_PARK_FACILITY_TYPES,
-        useCache
-      );
+        useCache,
+      )
 
       return {
         success: true,
         data: data,
-        message: "Facility types loaded successfully",
-      };
+        message: 'Facility types loaded successfully',
+      }
     } catch (error) {
-      console.error("Failed to load facility types:", error);
+      console.error('Failed to load facility types:', error)
       return {
         success: false,
         data: null,
         message: `Failed to load facility types: ${error.message}`,
-      };
+      }
     }
   }
 
@@ -60,21 +60,21 @@ class AccessibilityService {
         API_CONFIG.API.ENDPOINTS.FACILITY_ICON_MAPPINGS,
         API_CONFIG.STATIC.ENDPOINTS.LABOR_PARK_FACILITY_ICON_MAPPINGS,
         API_CONFIG.CACHE.KEYS.LABOR_PARK_FACILITY_ICON_MAPPINGS,
-        useCache
-      );
+        useCache,
+      )
 
       return {
         success: true,
         data: data,
-        message: "Facility icon mappings loaded successfully",
-      };
+        message: 'Facility icon mappings loaded successfully',
+      }
     } catch (error) {
-      console.error("Failed to load facility icon mappings:", error);
+      console.error('Failed to load facility icon mappings:', error)
       return {
         success: false,
         data: null,
         message: `Failed to load facility icon mappings: ${error.message}`,
-      };
+      }
     }
   }
 
@@ -84,29 +84,29 @@ class AccessibilityService {
         API_CONFIG.API.ENDPOINTS.FACILITIES,
         API_CONFIG.STATIC.ENDPOINTS.LABOR_PARK_FACILITIES,
         API_CONFIG.CACHE.KEYS.LABOR_PARK_FACILITIES,
-        useCache
-      );
+        useCache,
+      )
 
       return {
         success: true,
         data: data,
-        message: "Facilities loaded successfully",
-      };
+        message: 'Facilities loaded successfully',
+      }
     } catch (error) {
-      console.error("Failed to load facilities:", error);
+      console.error('Failed to load facilities:', error)
       return {
         success: false,
         data: null,
         message: `Failed to load facilities: ${error.message}`,
-      };
+      }
     }
   }
 
   setDataSource(dataSource) {
-    this.dataLoader.setDataSource(dataSource);
+    this.dataLoader.setDataSource(dataSource)
   }
 }
 
-export const accessibilityService = new AccessibilityService();
+export const accessibilityService = new AccessibilityService()
 
-export default AccessibilityService;
+export default AccessibilityService

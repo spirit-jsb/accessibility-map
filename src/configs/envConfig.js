@@ -1,38 +1,38 @@
-import { getEnvVar, getCurrentEnv } from "../utils/envUtils.js";
+import { getCurrentEnv, getEnvVar } from '../utils/envUtils.js'
 
 export const ENV_CONFIG = {
   current: getCurrentEnv(),
-  isDevelopment: getCurrentEnv() === "development",
-  isProduction: getCurrentEnv() === "production",
-  isLocal: getCurrentEnv() === "local",
+  isDevelopment: getCurrentEnv() === 'development',
+  isProduction: getCurrentEnv() === 'production',
+  isLocal: getCurrentEnv() === 'local',
 
   app: {
-    title: getEnvVar("VITE_APP_TITLE", "无障碍地图网站"),
-    version: getEnvVar("VITE_APP_VERSION", "1.0.0"),
+    title: getEnvVar('VITE_APP_TITLE', '无障碍地图网站'),
+    version: getEnvVar('VITE_APP_VERSION', '1.0.0'),
     env: getCurrentEnv(),
   },
 
   debug: {
-    enabled: getEnvVar("VITE_DEBUG_MODE", "false") === "true",
-    logLevel: getEnvVar("VITE_LOG_LEVEL", "info"),
-    showConsole: getEnvVar("VITE_SHOW_CONSOLE", "false") === "true",
+    enabled: getEnvVar('VITE_DEBUG_MODE', 'false') === 'true',
+    logLevel: getEnvVar('VITE_LOG_LEVEL', 'info'),
+    showConsole: getEnvVar('VITE_SHOW_CONSOLE', 'false') === 'true',
   },
 
   features: {
-    enableMock: getEnvVar("VITE_ENABLE_MOCK", "false") === "true",
-    enableHotReload: getEnvVar("VITE_ENABLE_HOT_RELOAD", "true") === "true",
-    enableDevtools: getEnvVar("VITE_ENABLE_DEVTOOLS", "false") === "true",
+    enableMock: getEnvVar('VITE_ENABLE_MOCK', 'false') === 'true',
+    enableHotReload: getEnvVar('VITE_ENABLE_HOT_RELOAD', 'true') === 'true',
+    enableDevtools: getEnvVar('VITE_ENABLE_DEVTOOLS', 'false') === 'true',
   },
 
   security: {
-    enableHttps: getEnvVar("VITE_ENABLE_HTTPS", "false") === "true",
+    enableHttps: getEnvVar('VITE_ENABLE_HTTPS', 'false') === 'true',
   },
-};
+}
 
 if (ENV_CONFIG.isProduction) {
   if (!ENV_CONFIG.debug.showConsole) {
-    const preserveError = console.error;
-    const noop = () => {};
+    const preserveError = console.error
+    const noop = () => {}
 
     Object.assign(console, {
       log: noop,
@@ -40,6 +40,6 @@ if (ENV_CONFIG.isProduction) {
       warn: noop,
       debug: noop,
       error: preserveError,
-    });
+    })
   }
 }
