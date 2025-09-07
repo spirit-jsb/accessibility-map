@@ -1,4 +1,5 @@
 <script setup>
+import SpeechFacilityListView from './SpeechFacilityListView.vue'
 import SpeechMapView from './SpeechMapView.vue'
 import VisualFacilityListView from './VisualFacilityListView.vue'
 import VisualMapView from './VisualMapView.vue'
@@ -24,8 +25,17 @@ const handleNavigateToVisualFacilityList = (facilityTypeId) => {
   currentView.value = 'visualFacilityList'
 }
 
+const handleNavigateToSpeechFacilityList = (facilityTypeId) => {
+  selectedFacilityTypeId.value = facilityTypeId
+  currentView.value = 'speechFacilityList'
+}
+
 const handleBackToVisualMap = () => {
   currentView.value = 'visualMap'
+}
+
+const handleBackToSpeechMap = () => {
+  currentView.value = 'speechMap'
 }
 </script>
 
@@ -58,12 +68,22 @@ const handleBackToVisualMap = () => {
     @navigateToVisualFacilityList="handleNavigateToVisualFacilityList"
   />
 
-  <SpeechMapView v-else-if="currentView === 'speechMap'" @back="currentView = 'home'" />
+  <SpeechMapView
+    v-else-if="currentView === 'speechMap'"
+    @back="currentView = 'home'"
+    @navigateToSpeechFacilityList="handleNavigateToSpeechFacilityList"
+  />
 
   <VisualFacilityListView
     v-else-if="currentView === 'visualFacilityList'"
     :facility-type-id="selectedFacilityTypeId"
     @back="handleBackToVisualMap"
+  />
+
+  <SpeechFacilityListView
+    v-else-if="currentView === 'speechFacilityList'"
+    :facility-type-id="selectedFacilityTypeId"
+    @back="handleBackToSpeechMap"
   />
 </template>
 

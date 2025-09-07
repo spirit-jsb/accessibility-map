@@ -113,7 +113,7 @@ const onBack = () => {
 }
 
 const onFunctionItemClick = (item) => {
-  console.log('点击功能按钮:', item)
+  emit('navigateToSpeechFacilityList', item.id)
 }
 
 onMounted(() => {
@@ -334,6 +334,6 @@ onMounted(() => {
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  text-align: left
+  text-align: left;
 }
 </style>
