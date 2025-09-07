@@ -1,4 +1,5 @@
 <script setup>
+import SpeechMapView from './SpeechMapView.vue'
 import VisualFacilityListView from './VisualFacilityListView.vue'
 import VisualMapView from './VisualMapView.vue'
 import { ref } from 'vue'
@@ -15,7 +16,7 @@ const handleNavigateToVisualMap = () => {
 }
 
 const handleNavigateToSpeechMap = () => {
-  console.log('跳转到语音地图')
+  currentView.value = 'speechMap'
 }
 
 const handleNavigateToVisualFacilityList = (facilityTypeId) => {
@@ -56,6 +57,8 @@ const handleBackToVisualMap = () => {
     @back="currentView = 'home'"
     @navigateToVisualFacilityList="handleNavigateToVisualFacilityList"
   />
+
+  <SpeechMapView v-else-if="currentView === 'speechMap'" @back="currentView = 'home'" />
 
   <VisualFacilityListView
     v-else-if="currentView === 'visualFacilityList'"
