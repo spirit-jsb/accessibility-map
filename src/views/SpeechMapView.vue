@@ -17,12 +17,14 @@ const userPosition = ref({
   directionText: '北',
 })
 
-const facilityItems = computed(() => {
-  return facilityTypes.value.map((type) => ({
-    id: type.id,
-    text: `查看附近的${type.name}`,
-    action: type.id,
-  }))
+const availableFacilityTypes = computed(() => {
+  return facilityTypes.value
+    .filter((facilityType) => facilityType.is_active)
+    .map((facilityType) => ({
+      id: facilityType.id,
+      name: `查看附近的${facilityType.name}`,
+      action: facilityType.id,
+    }))
 })
 
 const fetchUserLocation = () => {
@@ -31,7 +33,7 @@ const fetchUserLocation = () => {
       (position) => {
         userPosition.value.latitude = position.coords.latitude
         userPosition.value.longitude = position.coords.longitude
-        console.log('获取到用户位置:', userPosition.value)
+        console.log('获取到用户位置:', userPosition.value.latitude, userPosition.value.longitude)
       },
       (error) => {
         console.warn('无法获取用户位置，使用默认值:', error)
@@ -84,95 +86,84 @@ const listenToDeviceHeading = async () => {
   }
 }
 
-const fetchFacilityData = async () => {
+const fetchFacilityTypesData = async () => {
   try {
-    console.log('Loading facility data...')
+    console.log('Loading facility type data...')
 
-    const [typesResult, iconsResult] = await Promise.all([
+    const [facilityTypesResult, facilityIconMappingsResult] = await Promise.all([
       accessibilityService.getFacilityTypes(),
       accessibilityService.getFacilityIconMappings(),
     ])
 
-    if (!typesResult.success) throw new Error(typesResult.message)
-    if (!iconsResult.success) throw new Error(iconsResult.message)
+    if (!facilityTypesResult.success) throw new Error(facilityTypesResult.message)
+    if (!facilityIconMappingsResult.success) throw new Error(facilityIconMappingsResult.message)
 
-    facilityTypes.value = typesResult.data.data.facility_types || []
-    facilityIconMap.value = iconsResult.data || {}
+    facilityTypes.value = facilityTypesResult.data.data.facility_types || []
+    facilityIconMap.value = facilityIconMappingsResult.data || {}
 
-    console.log('Data loaded:', {
+    console.log('Data loaded successfully:', {
       facilityTypes: facilityTypes.value.length,
       facilityIcons: Object.keys(facilityIconMap.value).length,
     })
   } catch (error) {
-    console.error('Error loading facility data:', error)
+    console.error('Failed to load facility type data:', error)
   }
 }
 
-const onBack = () => {
+const handleBack = () => {
   emit('back')
 }
 
-const onFunctionItemClick = (item) => {
-  emit('navigateToSpeechFacilityList', item.id)
+const handleFacilityTypeClick = (facilityType) => {
+  emit('navigateToSpeechFacilityList', facilityType.action)
 }
 
 onMounted(() => {
   fetchUserLocation()
   listenToDeviceHeading()
-  fetchFacilityData()
+  fetchFacilityTypesData()
 })
 </script>
 
 <template>
   <div class="speech-map-view">
     <div class="navigation-bar">
-      <button class="navigation-back-button" @click="onBack">
+      <button class="navigation-back-button" @click="handleBack">
         <img :src="navigationBack" alt="返回" class="navigation-back-icon" />
       </button>
+      <div class="navigation-title">语音地图</div>
     </div>
 
-    <div class="logo-section">
-      <img :src="logo" alt="中国残疾人联合会" class="logo-image" />
-    </div>
+    <img :src="logo" alt="中国残疾人联合会" class="logo-image" />
 
-    <div class="scrollable-container">
+    <div class="scrollable-section">
       <div class="scrollable-content">
-        <div class="position-section">
-          <div class="position-grid">
-            <div class="location-item">
-              <div class="location-content">
-                <div class="location-label">当前位置：</div>
-                <div class="location-value marquee-container">
-                  <span class="marquee-location-text">
-                    <template v-if="userPosition.longitude && userPosition.latitude">
-                      经度{{ userPosition.longitude }} 纬度{{ userPosition.latitude }}
-                    </template>
-                    <template v-else> 正在定位... </template>
-                  </span>
-                </div>
-              </div>
+        <div class="position-infomation">
+          <div class="location-item">
+            <div class="location-label">当前位置：</div>
+            <div class="marquee-container">
+              <span class="location-value">
+                <template v-if="userPosition.longitude && userPosition.latitude">
+                  经度{{ userPosition.longitude }} 纬度{{ userPosition.latitude }}
+                </template>
+                <template v-else> 正在定位... </template>
+              </span>
             </div>
-            <div class="direction-item">
-              <div class="direction-content">
-                <div class="direction-label">当前方向：</div>
-                <div class="direction-value">{{ userPosition.directionText }}</div>
-              </div>
-            </div>
+          </div>
+          <div class="direction-item">
+            <div class="direction-label">当前方向：</div>
+            <span class="direction-value">{{ userPosition.directionText }}</span>
           </div>
         </div>
 
-        <div class="function-section">
-          <div class="function-grid">
-            <div
-              v-for="(item, index) in facilityItems"
-              :key="item.id"
-              class="function-item"
-              @click="onFunctionItemClick(item)"
-            >
-              <div class="function-content">
-                <div class="function-text">{{ item.text }}</div>
-              </div>
-            </div>
+        <div class="facility-type-list">
+          <div
+            v-for="item in availableFacilityTypes"
+            :key="item.id"
+            class="facility-type-item"
+            @click="handleFacilityTypeClick(item)"
+          >
+            <span class="facility-type-name">{{ item.name }}</span>
           </div>
         </div>
       </div>
@@ -200,27 +191,41 @@ onMounted(() => {
 }
 
 .navigation-back-button {
+  display: flex;
   border: none;
   background: none;
+  padding: 0 6px;
 }
 
 .navigation-back-icon {
   filter: brightness(0) invert(1);
+  height: 44px;
 }
 
-.logo-section {
-  display: flex;
-  justify-content: center;
+.navigation-title {
+  position: absolute;
+  left: 50%;
+  flex: 1;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .logo-image {
+  margin: 12px auto;
   width: 68px;
   height: 68px;
 }
 
-.scrollable-container {
+.scrollable-section {
   flex: 1;
-  padding: 48px 24px calc(env(safe-area-inset-bottom, 34px)) 24px;
+  padding: 0 0 calc(env(safe-area-inset-bottom, 34px)) 0;
   overflow-y: auto;
 }
 
@@ -228,18 +233,17 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 12px 0;
 }
 
-.position-section {
-}
-
-.position-grid {
+.position-infomation {
   display: flex;
-  flex-direction: row;
   gap: 24px;
+  padding: 0 24px;
 }
 
 .location-item {
+  display: flex;
   flex: 1; /* 占据剩余宽度 */
   border: 2px solid #ffffff;
   border-radius: 4px;
@@ -255,45 +259,32 @@ onMounted(() => {
   padding: 16px 8px;
 }
 
-.location-content,
-.direction-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 4px;
-}
-
 .location-label,
 .direction-label {
   flex-shrink: 0;
   color: #ffffff;
-  font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  text-align: left;
   white-space: nowrap;
 }
 
 .location-value,
 .direction-value {
   color: #ffffff;
-  font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  text-align: left;
   white-space: nowrap;
+}
+
+.location-value {
+  display: inline-block;
+  animation: marquee 10s linear infinite;
 }
 
 .marquee-container {
   position: relative;
   width: 100%;
   overflow: hidden;
-}
-
-.marquee-location-text {
-  display: inline-block;
-  animation: marquee 10s linear infinite;
-  white-space: nowrap;
 }
 
 @keyframes marquee {
@@ -305,35 +296,24 @@ onMounted(() => {
   }
 }
 
-.marquee-container:hover .marquee-location-text {
-  animation-play-state: paused;
-}
-
-.function-section {
-}
-
-.function-grid {
+.facility-type-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 0px 24px;
 }
 
-.function-item {
+.facility-type-item {
+  display: flex;
+  align-items: center;
   border: 2px solid #ffffff;
   border-radius: 4px;
   padding: 16px 8px;
-  width: 100%;
 }
 
-.function-content {
-  display: flex;
-}
-
-.function-text {
+.facility-type-name {
   color: #ffffff;
-  font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  text-align: left;
 }
 </style>
