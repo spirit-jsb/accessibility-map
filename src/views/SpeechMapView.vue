@@ -8,7 +8,6 @@ import { accessibilityService } from '../services/accessibilityService.js'
 const emit = defineEmits(['back', 'navigateToSpeechFacilityList'])
 
 const facilityTypes = ref([])
-const facilityIconMap = ref({})
 const userPosition = ref({
   latitude: null,
   longitude: null,
@@ -18,8 +17,11 @@ const userPosition = ref({
 })
 
 const availableFacilityTypes = computed(() => {
+  if (!facilityTypes.value.length) return []
+
   return facilityTypes.value
     .filter((facilityType) => facilityType.is_active)
+    .sort((a, b) => a.order - b.order)
     .map((facilityType) => ({
       id: facilityType.id,
       name: `查看附近的${facilityType.name}`,
@@ -90,21 +92,13 @@ const fetchFacilityTypesData = async () => {
   try {
     console.log('Loading facility type data...')
 
-    const [facilityTypesResult, facilityIconMappingsResult] = await Promise.all([
-      accessibilityService.getFacilityTypes(),
-      accessibilityService.getFacilityIconMappings(),
-    ])
+    const facilityTypesResult = accessibilityService.getFacilityTypes()
 
     if (!facilityTypesResult.success) throw new Error(facilityTypesResult.message)
-    if (!facilityIconMappingsResult.success) throw new Error(facilityIconMappingsResult.message)
 
     facilityTypes.value = facilityTypesResult.data.data.facility_types || []
-    facilityIconMap.value = facilityIconMappingsResult.data || {}
 
-    console.log('Data loaded successfully:', {
-      facilityTypes: facilityTypes.value.length,
-      facilityIcons: Object.keys(facilityIconMap.value).length,
-    })
+    console.log('Data loaded successfully:', { facilityTypes: facilityTypes.value.length })
   } catch (error) {
     console.error('Failed to load facility type data:', error)
   }
