@@ -41,23 +41,19 @@ const handleBackToSpeechMap = () => {
 
 <template>
   <div v-if="currentView === 'home'" class="home-view">
-    <div class="content-container-view">
-      <img :src="logo" alt="中国残疾人联合会" class="logo" />
+    <div class="navigation-bar"></div>
 
-      <div class="function-container-view">
-        <div class="function-item" @click="handleNavigateToVisualMap">
-          <div class="function-item-icon-wrapper">
-            <img :src="visualMap" alt="视觉地图" class="function-item-icon" />
-          </div>
-          <span class="function-item-label">视觉地图</span>
-        </div>
+    <img :src="logo" alt="中国残疾人联合会" class="logo-image" />
 
-        <div class="function-item" @click="handleNavigateToSpeechMap">
-          <div class="function-item-icon-wrapper">
-            <img :src="speechMap" alt="语音地图" class="function-item-icon" />
-          </div>
-          <span class="function-item-label">语音地图</span>
-        </div>
+    <div class="function-section">
+      <div class="function-item" @click="handleNavigateToVisualMap">
+        <img :src="visualMap" alt="视觉地图" class="function-icon" />
+        <span class="function-name">视觉地图</span>
+      </div>
+
+      <div class="function-item" @click="handleNavigateToSpeechMap">
+        <img :src="speechMap" alt="语音地图" class="function-icon" />
+        <span class="function-name">语音地图</span>
       </div>
     </div>
   </div>
@@ -97,19 +93,23 @@ const handleBackToSpeechMap = () => {
   overflow: hidden;
 }
 
-.content-container-view {
+.navigation-bar {
   display: flex;
-  flex-direction: column;
+  position: relative;
   align-items: center;
+  z-index: 99;
+  background-color: transparent;
+  padding: 0;
+  height: 44px;
 }
 
-.logo {
-  margin: 40px 0px 0px;
+.logo-image {
+  margin: 12px auto;
   width: 68px;
   height: 68px;
 }
 
-.function-container-view {
+.function-section {
   display: flex;
   position: absolute;
   top: 50%;
@@ -126,22 +126,14 @@ const handleBackToSpeechMap = () => {
   gap: 12px;
 }
 
-.function-item-icon-wrapper {
-  display: flex;
-  align-items: center;
+.function-icon {
   border: 2.5px solid #ffffff;
   border-radius: 8px;
+  padding: 8px 12px;
 }
 
-.function-item-icon {
-  margin: 8px 12px;
-  width: 56px;
-  height: 56px;
-}
-
-.function-item-label {
+.function-name {
   color: #ffffff;
-  font-style: normal;
   font-weight: bold;
   font-size: 20px;
   text-align: center;
