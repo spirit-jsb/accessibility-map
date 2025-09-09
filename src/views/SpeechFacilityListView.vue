@@ -153,10 +153,9 @@ onMounted(() => {
           v-for="item in nearbyFacilities"
           :key="item.id"
           class="facility-item"
-          :data-type="item.type_id"
           @click="handleFacilityClick(item)"
         >
-          <div class="facility-name">{{ item.name }}</div>
+          <span class="facility-name">{{ item.name }}</span>
           <span class="facility-distance">{{ item.distanceText }}</span>
           <img :src="navigateIndicator" alt="导航指示" class="facility-navigate-indicator-icon" />
         </div>
@@ -185,12 +184,15 @@ onMounted(() => {
 }
 
 .navigation-back-button {
+  display: flex;
   border: none;
   background: none;
+  padding: 0 6px;
 }
 
 .navigation-back-icon {
   filter: brightness(0) invert(1);
+  height: 44px;
 }
 
 .navigation-title {
@@ -201,7 +203,6 @@ onMounted(() => {
   margin: 0;
   padding: 0;
   color: #ffffff;
-  font-style: normal;
   font-weight: 600;
   font-size: 17px;
   line-height: 22px;
@@ -210,7 +211,6 @@ onMounted(() => {
 }
 
 .logo-image {
-  display: block;
   margin: 12px auto;
   width: 68px;
   height: 68px;
@@ -226,33 +226,28 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 24px;
+  padding: 12px 24px;
 }
 
 .facility-item {
   display: flex;
-  justify-items: center;
+  align-items: center;
   border: 2px solid #ffffff;
   border-radius: 4px;
   padding: 16px 8px;
-  width: 100%;
 }
 
 .facility-name {
   color: #ffffff;
-  font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  text-align: left;
 }
 
 .facility-distance {
   margin-left: auto;
   color: #ffffff;
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  text-align: left;
 }
 
 .facility-navigate-indicator-icon {
