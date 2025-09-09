@@ -125,7 +125,7 @@ onMounted(() => {
       <button class="navigation-back-button" @click="handleBack">
         <img :src="navigationBack" alt="返回" class="navigation-back-icon" />
       </button>
-      <div class="navigation-title">语音地图</div>
+      <h1 class="navigation-title">语音地图</h1>
     </div>
 
     <img :src="logo" alt="中国残疾人联合会" class="logo-image" />
@@ -134,19 +134,19 @@ onMounted(() => {
       <div class="scrollable-content">
         <div class="position-infomation">
           <div class="location-item">
-            <div class="location-label">当前位置：</div>
+            <p class="location-label">当前位置：</p>
             <div class="marquee-container">
-              <span class="location-value">
+              <p class="location-value">
                 <template v-if="userPosition.longitude && userPosition.latitude">
                   经度{{ userPosition.longitude }} 纬度{{ userPosition.latitude }}
                 </template>
                 <template v-else> 正在定位... </template>
-              </span>
+              </p>
             </div>
           </div>
           <div class="direction-item">
-            <div class="direction-label">当前方向：</div>
-            <span class="direction-value">{{ userPosition.directionText }}</span>
+            <p class="direction-label">当前方向：</p>
+            <p class="direction-value">{{ userPosition.directionText }}</p>
           </div>
         </div>
 
@@ -157,7 +157,7 @@ onMounted(() => {
             class="facility-type-item"
             @click="handleFacilityTypeClick(item)"
           >
-            <span class="facility-type-name">{{ item.name }}</span>
+            <p class="facility-type-name">{{ item.name }}</p>
           </div>
         </div>
       </div>
@@ -256,6 +256,7 @@ onMounted(() => {
 .location-label,
 .direction-label {
   flex-shrink: 0;
+  margin: 0;
   color: #ffffff;
   font-weight: bold;
   font-size: 16px;
@@ -264,6 +265,7 @@ onMounted(() => {
 
 .location-value,
 .direction-value {
+  margin: 0;
   color: #ffffff;
   font-weight: bold;
   font-size: 16px;
@@ -306,6 +308,7 @@ onMounted(() => {
 }
 
 .facility-type-name {
+  margin: 0;
   color: #ffffff;
   font-weight: bold;
   font-size: 16px;

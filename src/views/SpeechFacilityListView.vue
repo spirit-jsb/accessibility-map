@@ -155,8 +155,8 @@ onMounted(() => {
           class="facility-item"
           @click="handleFacilityClick(item)"
         >
-          <span class="facility-name">{{ item.name }}</span>
-          <span class="facility-distance">{{ item.distanceText }}</span>
+          <p class="facility-name">{{ item.name }}</p>
+          <p class="facility-distance">{{ item.distanceText }}</p>
           <img :src="navigateIndicator" alt="导航指示" class="facility-navigate-indicator-icon" />
         </div>
       </div>
@@ -238,12 +238,14 @@ onMounted(() => {
 }
 
 .facility-name {
+  margin: 0;
   color: #ffffff;
   font-weight: bold;
   font-size: 16px;
 }
 
 .facility-distance {
+  margin: 0;
   margin-left: auto;
   color: #ffffff;
   font-weight: 400;

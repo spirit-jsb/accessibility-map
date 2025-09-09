@@ -79,7 +79,7 @@ onMounted(() => {
       <button class="navigation-back-button" @click="handleBack">
         <img :src="navigationBack" alt="返回" class="navigation-back-icon" />
       </button>
-      <div class="navigation-title">视觉地图</div>
+      <h1 class="navigation-title">视觉地图</h1>
     </div>
 
     <div class="map-section"></div>
@@ -92,7 +92,7 @@ onMounted(() => {
         @click="handleFacilityTypeClick(item)"
       >
         <img :src="item.icon" :alt="item.alt" class="facility-type-icon" />
-        <span class="facility-type-name">{{ item.name }}</span>
+        <p class="facility-type-name">{{ item.name }}</p>
       </div>
     </div>
   </div>
@@ -168,6 +168,7 @@ onMounted(() => {
 }
 
 .facility-type-name {
+  margin: 0;
   color: #121212;
   font-weight: 500;
   font-size: 14px;

@@ -177,8 +177,8 @@ onMounted(() => {
             :alt="item.facilityTypeIcon.alt"
             class="facility-type-icon"
           />
-          <span class="facility-name">{{ item.name }}</span>
-          <span class="facility-distance">{{ item.distanceText }}</span>
+          <p class="facility-name">{{ item.name }}</p>
+          <p class="facility-distance">{{ item.distanceText }}</p>
           <img :src="navigateIndicator" alt="导航指示" class="facility-navigate-indicator-icon" />
         </div>
       </div>
@@ -271,6 +271,7 @@ onMounted(() => {
 }
 
 .facility-name {
+  margin: 0;
   margin-left: 12px;
   color: #121212;
   font-weight: 400;
@@ -278,6 +279,7 @@ onMounted(() => {
 }
 
 .facility-distance {
+  margin: 0;
   margin-left: auto;
   color: #121212;
   font-weight: 400;

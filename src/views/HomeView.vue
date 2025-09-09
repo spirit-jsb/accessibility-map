@@ -48,12 +48,12 @@ const handleBackToSpeechMap = () => {
     <div class="function-section">
       <div class="function-item" @click="handleNavigateToVisualMap">
         <img :src="visualMap" alt="视觉地图" class="function-icon" />
-        <span class="function-name">视觉地图</span>
+        <p class="function-name">视觉地图</p>
       </div>
 
       <div class="function-item" @click="handleNavigateToSpeechMap">
         <img :src="speechMap" alt="语音地图" class="function-icon" />
-        <span class="function-name">语音地图</span>
+        <p class="function-name">语音地图</p>
       </div>
     </div>
   </div>
@@ -133,6 +133,7 @@ const handleBackToSpeechMap = () => {
 }
 
 .function-name {
+  margin: 0;
   color: #ffffff;
   font-weight: bold;
   font-size: 20px;
