@@ -7,19 +7,20 @@ import { accessibilityService } from '../services/accessibilityService.js'
 const emit = defineEmits(['back', 'navigateToVisualFacilityList'])
 
 const facilityTypes = ref([])
-const facilityIconMappings = ref({})
+const facilityTypeIconMap = ref({})
 
-const bottomFunctionItems = computed(() => {
-  if (!facilityTypes.value.length || !Object.keys(facilityIconMappings.value).length) {
+const availableFacilityTypes = computed(() => {
+  if (!facilityTypes.value.length || !Object.keys(facilityTypeIconMap.value).length) {
     return []
   }
 
-  return [...facilityTypes.value]
+  return facilityTypes.value
+    .filter((facilityType) => facilityType.is_active)
     .sort((a, b) => a.order - b.order)
     .map((facilityType) => {
-      const iconMapping = facilityIconMappings.value[facilityType.id]
+      const iconMapping = facilityTypeIconMap.value[facilityType.id]
       if (!iconMapping) {
-        console.warn(`Icon not found for facility: ${facilityType.id}`)
+        console.warn(`Icon not found for facility type: ${facilityType.id}`)
         return null
       }
 
@@ -28,35 +29,30 @@ const bottomFunctionItems = computed(() => {
         icon: new URL(`../assets/images/${iconMapping.icon}`, import.meta.url).href,
         alt: iconMapping.alt,
         name: facilityType.name,
-        description: facilityType.description,
+        action: facilityType.id,
       }
     })
-    .filter(Boolean)
 })
 
-const loadFacilityData = async () => {
+const fetchFacilityTypesData = async () => {
   try {
-    console.log('Loading facility data...')
+    console.log('Loading facility types data...')
 
-    const [facilityTypesResult, facilityIconMappingsResult] = await Promise.all([
+    const [facilityTypesResult, facilityTypeIconMappingsResult] = await Promise.all([
       accessibilityService.getFacilityTypes(),
       accessibilityService.getFacilityIconMappings(),
     ])
 
-    if (!facilityTypesResult.success) {
-      throw new Error(facilityTypesResult.message)
-    }
-
-    if (!facilityIconMappingsResult.success) {
-      throw new Error(facilityIconMappingsResult.message)
-    }
+    if (!facilityTypesResult.success) throw new Error(facilityTypesResult.message)
+    if (!facilityTypeIconMappingsResult.success)
+      throw new Error(facilityTypeIconMappingsResult.message)
 
     facilityTypes.value = facilityTypesResult.data.data.facility_types || []
-    facilityIconMappings.value = facilityIconMappingsResult.data || {}
+    facilityTypeIconMap.value = facilityTypeIconMappingsResult.data || {}
 
     console.log('Data loaded successfully:', {
       facilityTypes: facilityTypes.value.length,
-      facilityIcons: Object.keys(facilityIconMappings.value).length,
+      facilityTypeIcons: Object.keys(facilityTypeIconMap.value).length,
     })
   } catch (error) {
     console.error('Failed to load data:', error)
@@ -67,18 +63,13 @@ const handleBack = () => {
   emit('back')
 }
 
-const handleBottomFunctionItemClick = (item) => {
-  console.log('点击功能按钮:', {
-    id: item.id,
-    label: item.label,
-    description: item.description,
-  })
-
-  emit('navigateToVisualFacilityList', item.id)
+const handleFacilityTypeClick = (item) => {
+  console.log('点击设施类型:', { id: item.id, label: item.name })
+  emit('navigateToVisualFacilityList', item.action)
 }
 
 onMounted(() => {
-  loadFacilityData()
+  fetchFacilityTypesData()
 })
 </script>
 
@@ -88,21 +79,20 @@ onMounted(() => {
       <button class="navigation-back-button" @click="handleBack">
         <img :src="navigationBack" alt="返回" class="navigation-back-icon" />
       </button>
+      <div class="navigation-title">视觉地图</div>
     </div>
 
-    <div class="map-container-view"></div>
+    <div class="map-section"></div>
 
-    <div class="bottom-function-container-view">
-      <div class="bottom-function-grid">
-        <div
-          v-for="(item, index) in bottomFunctionItems"
-          :key="item.id || index"
-          class="bottom-function-item"
-          @click="handleBottomFunctionItemClick(item)"
-        >
-          <img :src="item.icon" :alt="item.alt" class="bottom-function-item-icon" />
-          <span class="bottom-function-item-name">{{ item.name }}</span>
-        </div>
+    <div class="facility-type-list-section">
+      <div
+        v-for="item in availableFacilityTypes"
+        :key="item.id"
+        class="facility-type-item"
+        @click="handleFacilityTypeClick(item)"
+      >
+        <img :src="item.icon" :alt="item.alt" class="facility-type-icon" />
+        <span class="facility-type-name">{{ item.name }}</span>
       </div>
     </div>
   </div>
@@ -128,48 +118,57 @@ onMounted(() => {
 }
 
 .navigation-back-button {
+  display: flex;
   border: none;
   background: none;
+  padding: 0 6px;
 }
 
 .navigation-back-icon {
-  filter: brightness(0) saturate(100%) invert(7%) sepia(0%) saturate(0%) hue-rotate(0deg)
-    brightness(95%) contrast(86%);
+  filter: brightness(0) invert(0) sepia(1) saturate(10000%) hue-rotate(0deg);
+  height: 44px;
 }
 
-.map-container-view {
-  position: relative;
+.navigation-title {
+  position: absolute;
+  left: 50%;
+  flex: 1;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0;
+  color: #121212;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.map-section {
   flex: 1;
   overflow: hidden;
 }
 
-.bottom-function-container-view {
-  padding: 0;
-}
-
-.bottom-function-grid {
+.facility-type-list-section {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(4, 1fr);
   gap: 12px 0;
-  margin: 12px 0px calc(env(safe-area-inset-bottom, 34px) + 12px) 0px;
+  padding: 12px 0 calc(env(safe-area-inset-bottom, 34px) + 12px) 0;
 }
 
-.bottom-function-item {
+.facility-type-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 4px;
 }
 
-.bottom-function-item-icon {
-  display: flex;
-  align-items: center;
-  margin-bottom: 4px;
+.facility-type-icon {
 }
 
-.bottom-function-item-name {
+.facility-type-name {
   color: #121212;
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   text-align: center;
