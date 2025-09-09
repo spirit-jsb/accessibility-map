@@ -15,87 +15,11 @@ const props = defineProps({
 const emit = defineEmits(['back'])
 
 const facilityType = ref(null)
-const facilityIconMappings = ref({})
+const facilityTypeIconMap = ref({})
 const facilities = ref([])
-const userLocation = ref({ latitude: 31.23, longitude: 121.473 })
+const userLocation = ref({ latitude: null, longitude: null })
 
-const getFacilityIcon = computed(() => {
-  const iconMapping = facilityIconMappings.value[props.facilityTypeId]
-  if (!iconMapping) {
-    return null
-  }
-  return {
-    icon: new URL(`../assets/images/${iconMapping.icon}`, import.meta.url).href,
-    alt: iconMapping.alt,
-  }
-})
-
-const getUserLocation = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        userLocation.value = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        }
-        console.log('获取到用户位置:', userLocation.value)
-      },
-      (error) => {
-        console.warn('无法获取用户位置，使用默认位置:', error)
-      },
-    )
-  } else {
-    console.warn('浏览器不支持地理位置，使用默认位置')
-  }
-}
-
-const loadFacilityListData = async () => {
-  try {
-    console.log('Loading facility list data for type:', props.facilityTypeId)
-
-    const [facilityTypesResult, facilityIconMappingsResult, facilitiesResult] = await Promise.all([
-      accessibilityService.getFacilityTypes(),
-      accessibilityService.getFacilityIconMappings(),
-      accessibilityService.getFacilities(),
-    ])
-
-    if (!facilityTypesResult.success) {
-      throw new Error(facilityTypesResult.message)
-    }
-
-    if (!facilityIconMappingsResult.success) {
-      throw new Error(facilityIconMappingsResult.message)
-    }
-
-    if (!facilitiesResult.success) {
-      throw new Error(facilitiesResult.message)
-    }
-
-    const facilityTypes = facilityTypesResult.data.data.facility_types || []
-    facilityType.value = facilityTypes.find((type) => type.id === props.facilityTypeId)
-
-    facilityIconMappings.value = facilityIconMappingsResult.data || {}
-    facilities.value = facilitiesResult.data.data.facilities || []
-
-    console.log('Data loaded successfully:', {
-      facilityType: facilityType.value?.name,
-      facilityIcons: Object.keys(facilityIconMappings.value).length,
-      facilities: facilities.value.length,
-    })
-  } catch (error) {
-    console.error('Failed to load facility list data:', error)
-  }
-}
-
-const handleBack = () => {
-  emit('back')
-}
-
-const handleFacilityItemClick = (facility) => {
-  console.log('点击设施:', facility)
-}
-
-const facilityItemsWithDistance = computed(() => {
+const nearbyFacilities = computed(() => {
   if (!facilities.value.length || !userLocation.value) {
     return []
   }
@@ -103,6 +27,8 @@ const facilityItemsWithDistance = computed(() => {
   return facilities.value
     .filter((facility) => facility.type_id === props.facilityTypeId && facility.is_active)
     .map((facility) => {
+      const facilityTypeIcon = getFacilityTypeIcon()
+
       const distance = calculateDistance(
         userLocation.value.latitude,
         userLocation.value.longitude,
@@ -111,6 +37,7 @@ const facilityItemsWithDistance = computed(() => {
       )
 
       return {
+        facilityTypeIcon,
         ...facility,
         distance: Math.round(distance),
         distanceText:
@@ -119,6 +46,17 @@ const facilityItemsWithDistance = computed(() => {
     })
     .sort((a, b) => a.distance - b.distance)
 })
+
+const getFacilityTypeIcon = () => {
+  const iconMapping = facilityTypeIconMap.value[props.facilityTypeId]
+  if (!iconMapping) {
+    return null
+  }
+  return {
+    icon: new URL(`../assets/images/${iconMapping.icon}`, import.meta.url).href,
+    alt: iconMapping.alt,
+  }
+}
 
 /**
  * 计算两个地理坐标点之间的距离
@@ -155,9 +93,64 @@ const calculateDistance = (latitude1, longitude1, latitude2, longitude2) => {
   return distance * 1000
 }
 
+const fetchUserLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        userLocation.value.latitude = position.coords.latitude
+        userLocation.value.longitude = position.coords.longitude
+        console.log('获取到用户位置:', userLocation.value)
+      },
+      (error) => {
+        console.warn('无法获取用户位置，使用默认值:', error)
+      },
+    )
+  } else {
+    console.warn('浏览器不支持地理位置，使用默认值')
+  }
+}
+
+const fetchFacilitiesData = async () => {
+  try {
+    console.log('Loading facilities data for type:', props.facilityTypeId)
+
+    const [facilityTypesResult, facilityIconMappingsResult, facilitiesResult] = await Promise.all([
+      accessibilityService.getFacilityTypes(),
+      accessibilityService.getFacilityIconMappings(),
+      accessibilityService.getFacilities(),
+    ])
+
+    if (!facilityTypesResult.success) throw new Error(facilityTypesResult.message)
+    if (!facilityIconMappingsResult.success) throw new Error(facilityIconMappingsResult.message)
+    if (!facilitiesResult.success) throw new Error(facilitiesResult.message)
+
+    const facilityTypes = facilityTypesResult.data.data.facility_types || []
+    facilityType.value = facilityTypes.find((type) => type.id === props.facilityTypeId)
+
+    facilityTypeIconMap.value = facilityIconMappingsResult.data || {}
+    facilities.value = facilitiesResult.data.data.facilities || []
+
+    console.log('Data loaded successfully:', {
+      facilityType: facilityType.value?.name,
+      facilityIcons: Object.keys(facilityTypeIconMap.value).length,
+      facilities: facilities.value.length,
+    })
+  } catch (error) {
+    console.error('Failed to load facilities data:', error)
+  }
+}
+
+const handleBack = () => {
+  emit('back')
+}
+
+const handleFacilityClick = (facility) => {
+  console.log('点击设施:', facility)
+}
+
 onMounted(() => {
-  getUserLocation()
-  loadFacilityListData()
+  fetchUserLocation()
+  fetchFacilitiesData()
 })
 </script>
 
@@ -170,27 +163,24 @@ onMounted(() => {
       <h1 class="navigation-title">{{ facilityType?.name || '设施列表' }}</h1>
     </div>
 
-    <div class="facility-list-container-view">
-      <div
-        v-for="item in facilityItemsWithDistance"
-        :key="item.id"
-        class="facility-item"
-        :data-type="item.type_id"
-        @click="handleFacilityItemClick(item)"
-      >
-        <img
-          v-if="getFacilityIcon"
-          :src="getFacilityIcon.icon"
-          :alt="getFacilityIcon.alt"
-          class="facility-item-icon"
-        />
-        <span class="facility-item-name">{{ item.name }}</span>
-        <span class="facility-item-distance-text">{{ item.distanceText }}</span>
-        <img
-          :src="navigateIndicator"
-          alt="导航指示"
-          class="facility-item-navigate-indicator-icon"
-        />
+    <div class="scrollable-section">
+      <div class="facility-list">
+        <div
+          v-for="item in nearbyFacilities"
+          :key="item.id"
+          class="facility-item"
+          @click="handleFacilityClick(item)"
+        >
+          <img
+            v-if="item.facilityTypeIcon"
+            :src="item.facilityTypeIcon.icon"
+            :alt="item.facilityTypeIcon.alt"
+            class="facility-type-icon"
+          />
+          <span class="facility-name">{{ item.name }}</span>
+          <span class="facility-distance">{{ item.distanceText }}</span>
+          <img :src="navigateIndicator" alt="导航指示" class="facility-navigate-indicator-icon" />
+        </div>
       </div>
     </div>
   </div>
@@ -216,13 +206,15 @@ onMounted(() => {
 }
 
 .navigation-back-button {
+  display: flex;
   border: none;
   background: none;
+  padding: 0 6px;
 }
 
 .navigation-back-icon {
-  filter: brightness(0) saturate(100%) invert(7%) sepia(0%) saturate(0%) hue-rotate(0deg)
-    brightness(95%) contrast(86%);
+  filter: brightness(0) invert(0) sepia(1) saturate(10000%) hue-rotate(0deg);
+  height: 44px;
 }
 
 .navigation-title {
@@ -233,7 +225,6 @@ onMounted(() => {
   margin: 0;
   padding: 0;
   color: #121212;
-  font-style: normal;
   font-weight: 600;
   font-size: 17px;
   line-height: 22px;
@@ -241,23 +232,30 @@ onMounted(() => {
   white-space: nowrap;
 }
 
-.facility-list-container-view {
+.scrollable-section {
   flex: 1;
-  margin: 0 0 calc(env(safe-area-inset-bottom, 20px)) 0;
+  padding: 0 0 calc(env(safe-area-inset-bottom, 34px)) 0;
   overflow-y: auto;
+}
+
+.facility-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px;
 }
 
 .facility-item {
   display: flex;
   position: relative;
   align-items: center;
+  padding: 12px 8px;
 }
 
 .facility-item::after {
   position: absolute;
-  right: 8px;
+  right: 0;
   bottom: 0;
-  left: 8px;
+  left: 0;
   background-color: #1212124d;
   height: 1px;
   content: '';
@@ -267,34 +265,26 @@ onMounted(() => {
   display: none;
 }
 
-.facility-item-icon {
-  margin: 11px 0px 11px 16px;
+.facility-type-icon {
   width: 42px;
   height: 42px;
 }
 
-.facility-item-name {
+.facility-name {
   margin-left: 12px;
   color: #121212;
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  text-align: left;
 }
 
-.facility-item-distance-text {
-  align-items: center;
+.facility-distance {
   margin-left: auto;
   color: #121212;
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  text-align: left;
 }
 
-.facility-item-navigate-indicator-icon {
-  align-items: center;
-  margin-right: 8px;
+.facility-navigate-indicator-icon {
   margin-left: 4px;
 }
 </style>
