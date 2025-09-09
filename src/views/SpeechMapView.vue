@@ -92,7 +92,7 @@ const fetchFacilityTypesData = async () => {
   try {
     console.log('Loading facility type data...')
 
-    const facilityTypesResult = accessibilityService.getFacilityTypes()
+    const facilityTypesResult = await accessibilityService.getFacilityTypes()
 
     if (!facilityTypesResult.success) throw new Error(facilityTypesResult.message)
 
