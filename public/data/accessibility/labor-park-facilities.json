@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "created_at": "2025-09-02T00:00:00+08:00",
-  "updated_at": "2025-09-02T00:00:00+08:00",
+  "updated_at": "2025-09-14T00:00:00+08:00",
   "data": {
     "facilities": [
       {
@@ -11,7 +11,7 @@
         "name": "劳动公园南门",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2301, "longitude": 121.4737 },
+        "location": { "latitude": 40.654483, "longitude": 109.868958 },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -23,7 +23,7 @@
         "name": "劳动公园东门",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2303, "longitude": 121.472 },
+        "location": { "latitude": 40.65729, "longitude": 109.875851 },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -35,7 +35,7 @@
         "name": "劳动公园北门",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2298, "longitude": 121.473 },
+        "location": { "latitude": 40.661501, "longitude": 109.868707 },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -47,116 +47,115 @@
         "name": "爱心共享辅具空间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2312, "longitude": 121.4728 },
+        "location": { "latitude": 40.654538, "longitude": 109.869141 },
         "accessibility": {
           "screen_reader_text": ""
         }
       },
       {
         "id": 5,
-        "type_id": "park_speech_guide",
+        "type_id": "panoramic_guide_map",
         "category_id": "accessibility_information_facilities",
-        "name": "公园全景智慧语音导览图",
+        "name": "全景导览图",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2309, "longitude": 121.4735 },
+        "location": { "latitude": 40.654796, "longitude": 109.869299 },
         "accessibility": {
           "screen_reader_text": ""
         }
       },
       {
         "id": 6,
-        "type_id": "love_station",
+        "type_id": "love_station_and_cultural_corridor",
         "category_id": "accessibility_service_facilities",
-        "name": "爱心驿站",
+        "name": "爱心驿站及文化长廊",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2325, "longitude": 121.4736 },
+        "location": { "latitude": 40.655456, "longitude": 109.870603 },
         "accessibility": {
           "screen_reader_text": ""
         }
       },
       {
         "id": 7,
-        "type_id": "speech_guide_device",
+        "type_id": "celebrity_quotes_device",
         "category_id": "accessibility_information_facilities",
-        "name": "语音介绍装置 A",
+        "name": "名人语录介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2327, "longitude": 121.474 },
+        "location": { "latitude": 40.655525, "longitude": 109.870162 },
         "accessibility": {
           "screen_reader_text": ""
         }
       },
       {
         "id": 8,
-        "type_id": "speech_guide_device",
+        "type_id": "celebrity_quotes_device",
         "category_id": "accessibility_information_facilities",
-        "name": "语音介绍装置 B",
+        "name": "名人语录介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.233, "longitude": 121.4743 },
+        "location": { "latitude": 40.65627, "longitude": 109.86994 },
         "accessibility": {
           "screen_reader_text": ""
         }
       },
       {
         "id": 9,
-        "type_id": "speech_guide_device",
+        "type_id": "celebrity_quotes_device",
         "category_id": "accessibility_information_facilities",
-        "name": "语音介绍装置 C",
+        "name": "名人语录介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2333, "longitude": 121.4746 },
+        "location": { "latitude": 40.656197, "longitude": 109.870603 },
         "accessibility": {
           "screen_reader_text": ""
         }
       },
       {
         "id": 10,
-        "type_id": "plant_braille_sign",
+        "type_id": "plant_intro_device",
         "category_id": "accessibility_information_facilities",
-        "name": "植物科普盲文牌 A",
+        "name": "植物科普介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2305, "longitude": 121.474 },
+        "location": { "latitude": 40.655528, "longitude": 109.870234 },
         "accessibility": {
           "screen_reader_text": ""
         }
       },
       {
         "id": 11,
-        "type_id": "plant_braille_sign",
+        "type_id": "plant_intro_device",
         "category_id": "accessibility_information_facilities",
-        "name": "植物科普盲文牌 B",
+        "name": "植物科普介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2307, "longitude": 121.4745 },
+        "location": { "latitude": 40.65552, "longitude": 109.870082 },
         "accessibility": {
           "screen_reader_text": ""
         }
       },
       {
         "id": 12,
-        "type_id": "plant_braille_sign",
+        "type_id": "plant_intro_device",
         "category_id": "accessibility_information_facilities",
-        "name": "植物科普盲文牌 C",
+        "name": "植物科普介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.231, "longitude": 121.4748 },
+        "location": { "latitude": 40.655526, "longitude": 109.869904 },
         "accessibility": {
           "screen_reader_text": ""
         }
       },
-
       {
         "id": 13,
-        "type_id": "info_corridor",
-        "category_id": "accessibility_information_facilities",
-        "name": "宣传长廊",
+        "type_id": "accessible_toilet",
+        "category_id": "accessibility_access_facilities",
+        "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2315, "longitude": 121.4732 },
+        "location": { "latitude": 40.6553, "longitude": 109.870072 },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -165,10 +164,10 @@
         "id": 14,
         "type_id": "accessible_toilet",
         "category_id": "accessibility_access_facilities",
-        "name": "无障碍卫生间 A",
+        "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2317, "longitude": 121.4725 },
+        "location": { "latitude": 40.656116, "longitude": 109.872221 },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -177,10 +176,10 @@
         "id": 15,
         "type_id": "accessible_toilet",
         "category_id": "accessibility_access_facilities",
-        "name": "无障碍卫生间 B",
+        "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.232, "longitude": 121.4729 },
+        "location": { "latitude": 40.658197, "longitude": 109.873479 },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -189,10 +188,46 @@
         "id": 16,
         "type_id": "accessible_toilet",
         "category_id": "accessibility_access_facilities",
-        "name": "无障碍卫生间 C",
+        "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 31.2323, "longitude": 121.4733 },
+        "location": { "latitude": 40.659314, "longitude": 109.870962 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 17,
+        "type_id": "accessible_toilet",
+        "category_id": "accessibility_access_facilities",
+        "name": "无障碍卫生间",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 40.661275, "longitude": 109.869637 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 18,
+        "type_id": "accessible_toilet",
+        "category_id": "accessibility_access_facilities",
+        "name": "无障碍卫生间",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 40.659876, "longitude": 109.868796 },
+        "accessibility": {
+          "screen_reader_text": ""
+        }
+      },
+      {
+        "id": 19,
+        "type_id": "accessible_toilet",
+        "category_id": "accessibility_access_facilities",
+        "name": "无障碍卫生间",
+        "description": "",
+        "is_active": true,
+        "location": { "latitude": 40.656854, "longitude": 109.866657 },
         "accessibility": {
           "screen_reader_text": ""
         }

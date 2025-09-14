@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "created_at": "2025-08-28T00:00:00+08:00",
-  "updated_at": "2025-08-29T00:00:00+08:00",
+  "updated_at": "2025-09-14T00:00:00+08:00",
   "data": {
     "facility_types": [
       {
@@ -27,9 +27,9 @@
         }
       },
       {
-        "id": "park_speech_guide",
+        "id": "panoramic_guide_map",
         "category_id": "accessibility_information_facilities",
-        "name": "公园全景智慧语音导览图",
+        "name": "全景导览图",
         "description": "",
         "order": 3,
         "is_active": true,
@@ -38,9 +38,9 @@
         }
       },
       {
-        "id": "love_station",
+        "id": "love_station_and_cultural_corridor",
         "category_id": "accessibility_service_facilities",
-        "name": "爱心驿站",
+        "name": "爱心驿站及文化长廊",
         "description": "",
         "order": 4,
         "is_active": true,
@@ -49,9 +49,9 @@
         }
       },
       {
-        "id": "speech_guide_device",
+        "id": "celebrity_quotes_device",
         "category_id": "accessibility_information_facilities",
-        "name": "语音介绍装置",
+        "name": "名人语录介绍装置",
         "description": "",
         "order": 5,
         "is_active": true,
@@ -60,22 +60,11 @@
         }
       },
       {
-        "id": "plant_braille_sign",
+        "id": "plant_intro_device",
         "category_id": "accessibility_information_facilities",
-        "name": "植物科普盲文牌",
+        "name": "植物科普介绍装置",
         "description": "",
         "order": 6,
-        "is_active": true,
-        "accessibility": {
-          "screen_reader_text": ""
-        }
-      },
-      {
-        "id": "info_corridor",
-        "category_id": "accessibility_information_facilities",
-        "name": "宣传长廊",
-        "description": "",
-        "order": 7,
         "is_active": true,
         "accessibility": {
           "screen_reader_text": ""
