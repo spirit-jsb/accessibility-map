@@ -3,9 +3,13 @@ import { createApp } from 'vue'
 
 import './assets/styles/style.css'
 import { configManager } from './utils/configManager'
+import { debugManager } from './utils/debugManager'
 
 const initializeApp = async () => {
   try {
+    // 初始化调试工具（仅在开发环境）
+    await debugManager.initialize()
+    
     const configInitialized = await configManager.initialize()
 
     if (!configInitialized) {

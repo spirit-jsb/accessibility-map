@@ -23,6 +23,7 @@
     "eslint-plugin-vue": "^10.4.0",
     "globals": "^16.3.0",
     "prettier-plugin-css-order": "^2.1.2",
+    "vconsole": "^3.15.1",
     "vite": "^7.1.2"
   }
 }
