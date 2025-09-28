@@ -1,46 +1,23 @@
 <script setup>
-import SpeechFacilityListView from './SpeechFacilityListView.vue'
-import SpeechMapView from './SpeechMapView.vue'
-import VisualFacilityListView from './VisualFacilityListView.vue'
-import VisualMapView from './VisualMapView.vue'
 import { ref } from 'vue'
 
 import logo from '../assets/images/logo.svg'
 import speechMap from '../assets/images/speech-map.svg'
 import visualMap from '../assets/images/visual-map.svg'
 
-const currentView = ref('home')
-const selectedFacilityTypeId = ref(null)
+const emit = defineEmits(['navigateToVisualMap', 'navigateToSpeechMap'])
 
 const handleNavigateToVisualMap = () => {
-  currentView.value = 'visualMap'
+  emit('navigateToVisualMap')
 }
 
 const handleNavigateToSpeechMap = () => {
-  currentView.value = 'speechMap'
-}
-
-const handleNavigateToVisualFacilityList = (facilityTypeId) => {
-  selectedFacilityTypeId.value = facilityTypeId
-  currentView.value = 'visualFacilityList'
-}
-
-const handleNavigateToSpeechFacilityList = (facilityTypeId) => {
-  selectedFacilityTypeId.value = facilityTypeId
-  currentView.value = 'speechFacilityList'
-}
-
-const handleBackToVisualMap = () => {
-  currentView.value = 'visualMap'
-}
-
-const handleBackToSpeechMap = () => {
-  currentView.value = 'speechMap'
+  emit('navigateToSpeechMap')
 }
 </script>
 
 <template>
-  <div v-if="currentView === 'home'" class="home-view">
+  <div class="home-view">
     <div class="navigation-bar"></div>
 
     <img :src="logo" alt="中国残疾人联合会" class="logo-image" />
@@ -57,30 +34,6 @@ const handleBackToSpeechMap = () => {
       </div>
     </div>
   </div>
-
-  <VisualMapView
-    v-else-if="currentView === 'visualMap'"
-    @back="currentView = 'home'"
-    @navigateToVisualFacilityList="handleNavigateToVisualFacilityList"
-  />
-
-  <SpeechMapView
-    v-else-if="currentView === 'speechMap'"
-    @back="currentView = 'home'"
-    @navigateToSpeechFacilityList="handleNavigateToSpeechFacilityList"
-  />
-
-  <VisualFacilityListView
-    v-else-if="currentView === 'visualFacilityList'"
-    :facility-type-id="selectedFacilityTypeId"
-    @back="handleBackToVisualMap"
-  />
-
-  <SpeechFacilityListView
-    v-else-if="currentView === 'speechFacilityList'"
-    :facility-type-id="selectedFacilityTypeId"
-    @back="handleBackToSpeechMap"
-  />
 </template>
 
 <style scoped>

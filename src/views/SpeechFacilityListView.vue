@@ -1,10 +1,11 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 import logo from '../assets/images/logo.svg'
 import navigateIndicator from '../assets/images/navigate-indicator.svg'
 import navigationBack from '../assets/images/navigation-back.svg'
 import { accessibilityService } from '../services/accessibilityService.js'
+import { amapService } from '../services/amapService.js'
 
 const props = defineProps({
   facilityTypeId: {
@@ -13,11 +14,11 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['back'])
+const emit = defineEmits(['back', 'navigateToSpeechNavigation'])
 
 const facilityType = ref(null)
 const facilities = ref([])
-const userLocation = ref({ latitude: null, longitude: null })
+const userLocation = ref({ longitude: null, latitude: null })
 
 const nearbyFacilities = computed(() => {
   if (!facilities.value.length || !userLocation.value) {
@@ -27,11 +28,9 @@ const nearbyFacilities = computed(() => {
   return facilities.value
     .filter((facility) => facility.type_id === props.facilityTypeId && facility.is_active)
     .map((facility) => {
-      const distance = calculateDistance(
-        userLocation.value.latitude,
-        userLocation.value.longitude,
-        facility.location.latitude,
-        facility.location.longitude,
+      const distance = amapService.calculateDistance(
+        [userLocation.value.longitude, userLocation.value.latitude],
+        [facility.location.longitude, facility.location.latitude],
       )
 
       return {
@@ -44,55 +43,14 @@ const nearbyFacilities = computed(() => {
     .sort((a, b) => a.distance - b.distance)
 })
 
-/**
- * 计算两个地理坐标点之间的距离
- * 使用 Haversine 公式计算地球表面两点间的最短距离
- *
- * @param {number} latitude1 - 起点纬度
- * @param {number} longitude1 - 起点经度
- * @param {number} latitude2 - 终点纬度
- * @param {number} longitude2 - 终点经度
- * @returns {number} 两点间的距离(单位：米)
- *
- */
-const calculateDistance = (latitude1, longitude1, latitude2, longitude2) => {
-  // 地球半径(千米)
-  const R = 6371
+const getUserLocation = async () => {
+  try {
+    const location = await amapService.getCurrentPosition()
 
-  // 将经纬度转换为弧度
-  const dLatitude = ((latitude2 - latitude1) * Math.PI) / 180 // 纬度差
-  const dLongitude = ((longitude2 - longitude1) * Math.PI) / 180 // 经度差
-
-  // Haversine 公式计算
-  const a =
-    Math.sin(dLatitude / 2) * Math.sin(dLatitude / 2) + // 纬度差的正弦平方
-    Math.cos((latitude1 * Math.PI) / 180) * // 起点纬度的余弦
-      Math.cos((latitude2 * Math.PI) / 180) * // 终点纬度的余弦
-      Math.sin(dLongitude / 2) * // 经度差的正弦
-      Math.sin(dLongitude / 2) // 经度差的正弦
-
-  // 计算大圆距离
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-
-  // 将距离从千米转换为米
-  const distance = R * c
-  return distance * 1000
-}
-
-const fetchUserLocation = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        userLocation.value.latitude = position.coords.latitude
-        userLocation.value.longitude = position.coords.longitude
-        console.log('获取到用户位置:', userLocation.value)
-      },
-      (error) => {
-        console.warn('无法获取用户位置，使用默认值:', error)
-      },
-    )
-  } else {
-    console.warn('浏览器不支持地理位置，使用默认值')
+    userLocation.value.longitude = location.longitude
+    userLocation.value.latitude = location.latitude
+  } catch (error) {
+    console.error('获取用户位置失败：', error)
   }
 }
 
@@ -128,11 +86,19 @@ const handleBack = () => {
 
 const handleFacilityClick = (facility) => {
   console.log('点击设施:', facility)
+  emit('navigateToSpeechNavigation', {
+    facility: facility,
+    userLocation: userLocation.value,
+  })
 }
 
 onMounted(() => {
-  fetchUserLocation()
   fetchFacilitiesData()
+  getUserLocation()
+})
+
+onUnmounted(() => {
+  amapService.destroy()
 })
 </script>
 

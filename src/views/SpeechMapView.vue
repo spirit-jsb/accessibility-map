@@ -1,17 +1,18 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 import logo from '../assets/images/logo.svg'
 import navigationBack from '../assets/images/navigation-back.svg'
 import { accessibilityService } from '../services/accessibilityService.js'
+import { amapService } from '../services/amapService.js'
 
 const emit = defineEmits(['back', 'navigateToSpeechFacilityList'])
 
 const facilityTypes = ref([])
-const userPosition = ref({
+const userLocation = ref({
   latitude: null,
   longitude: null,
-  locationName: '未知地点',
+  locationName: '获取位置中...',
   heading: 0,
   directionText: '北',
 })
@@ -29,65 +30,6 @@ const availableFacilityTypes = computed(() => {
     }))
 })
 
-const fetchUserLocation = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        userPosition.value.latitude = position.coords.latitude
-        userPosition.value.longitude = position.coords.longitude
-        console.log('获取到用户位置:', userPosition.value.latitude, userPosition.value.longitude)
-      },
-      (error) => {
-        console.warn('无法获取用户位置，使用默认值:', error)
-      },
-    )
-  } else {
-    console.warn('浏览器不支持地理位置，使用默认值')
-  }
-}
-
-const listenToDeviceHeading = async () => {
-  // iOS Safari 需要权限
-  if (
-    typeof DeviceOrientationEvent !== 'undefined' &&
-    typeof DeviceOrientationEvent.requestPermission === 'function'
-  ) {
-    try {
-      const permission = await DeviceOrientationEvent.requestPermission()
-      if (permission !== 'granted') {
-        console.warn('用户未授权访问方向数据')
-        return
-      }
-    } catch (err) {
-      console.error('请求方向权限失败:', err)
-      return
-    }
-  }
-
-  if (window.DeviceOrientationEvent) {
-    window.addEventListener(
-      'deviceorientation',
-      (event) => {
-        let heading
-        if (typeof event.webkitCompassHeading !== 'undefined') {
-          heading = event.webkitCompassHeading // iOS Safari
-        } else {
-          heading = 360 - event.alpha // 兜底
-        }
-
-        userPosition.value.heading = heading
-
-        const directions = ['北', '东北', '东', '东南', '南', '西南', '西', '西北']
-        const index = Math.round(heading / 45) % 8
-        userPosition.value.directionText = directions[index]
-      },
-      true,
-    )
-  } else {
-    console.error('浏览器不支持设备方向检测')
-  }
-}
-
 const fetchFacilityTypesData = async () => {
   try {
     console.log('Loading facility type data...')
@@ -104,6 +46,18 @@ const fetchFacilityTypesData = async () => {
   }
 }
 
+const getUserLocation = async () => {
+  try {
+    const location = await amapService.getCurrentPosition()
+
+    userLocation.value.latitude = location.latitude
+    userLocation.value.longitude = location.longitude
+    userLocation.value.locationName = location.address
+  } catch (error) {
+    console.error('获取用户位置失败：', error)
+  }
+}
+
 const handleBack = () => {
   emit('back')
 }
@@ -113,9 +67,12 @@ const handleFacilityTypeClick = (facilityType) => {
 }
 
 onMounted(() => {
-  fetchUserLocation()
-  listenToDeviceHeading()
   fetchFacilityTypesData()
+  getUserLocation()
+})
+
+onUnmounted(() => {
+  amapService.destroy()
 })
 </script>
 
@@ -137,16 +94,16 @@ onMounted(() => {
             <p class="location-label">当前位置：</p>
             <div class="marquee-container">
               <p class="location-value">
-                <template v-if="userPosition.longitude && userPosition.latitude">
-                  经度{{ userPosition.longitude }} 纬度{{ userPosition.latitude }}
+                <template v-if="userLocation.locationName !== '获取位置中...'">
+                  {{ userLocation.locationName }}
                 </template>
-                <template v-else> 正在定位... </template>
+                <template v-else> 获取位置中... </template>
               </p>
             </div>
           </div>
           <div class="direction-item">
             <p class="direction-label">当前方向：</p>
-            <p class="direction-value">{{ userPosition.directionText }}</p>
+            <p class="direction-value">{{ userLocation.directionText }}</p>
           </div>
         </div>
 

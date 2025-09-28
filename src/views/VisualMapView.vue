@@ -1,13 +1,17 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 import navigationBack from '../assets/images/navigation-back.svg'
+import userMarkerIcon from '../assets/images/user-marker.svg'
+import { AMAP_CONFIG } from '../configs/amapConfig.js'
 import { accessibilityService } from '../services/accessibilityService.js'
+import { amapService } from '../services/amapService.js'
 
 const emit = defineEmits(['back', 'navigateToVisualFacilityList'])
 
 const facilityTypes = ref([])
 const facilityTypeIconMap = ref({})
+const userLocation = ref(null)
 
 const availableFacilityTypes = computed(() => {
   if (!facilityTypes.value.length || !Object.keys(facilityTypeIconMap.value).length) {
@@ -59,17 +63,52 @@ const fetchFacilityTypesData = async () => {
   }
 }
 
+const initializeMap = async () => {
+  try {
+    await amapService.initializeMap('display-map')
+    console.log('地图初始化完成')
+
+    await getUserLocation()
+
+    amapService.map.setCenter([userLocation.value.longitude, userLocation.value.latitude])
+    amapService.map.setZoom(18)
+  } catch (error) {
+    console.error('展示地图初始化失败：', error)
+  }
+}
+
+const getUserLocation = async () => {
+  try {
+    const location = await amapService.getCurrentPosition({
+      showCircle: true,
+      showMarker: true,
+    })
+
+    // 保存用户位置
+    userLocation.value = location
+
+    console.log('获取当前位置成功：', location)
+  } catch (error) {
+    console.error('获取当前位置失败：', error)
+  }
+}
+
 const handleBack = () => {
   emit('back')
 }
 
-const handleFacilityTypeClick = (item) => {
-  console.log('点击设施类型:', { id: item.id, label: item.name })
-  emit('navigateToVisualFacilityList', item.action)
+const handleFacilityTypeClick = (facilityType) => {
+  console.log('点击设施类型:', facilityType)
+  emit('navigateToVisualFacilityList', facilityType.action)
 }
 
 onMounted(() => {
   fetchFacilityTypesData()
+  initializeMap()
+})
+
+onUnmounted(() => {
+  amapService.destroy()
 })
 </script>
 
@@ -82,7 +121,9 @@ onMounted(() => {
       <h1 class="navigation-title">视觉地图</h1>
     </div>
 
-    <div class="map-section"></div>
+    <div class="map-section">
+      <div id="display-map" style="width: 100%; height: 100%"></div>
+    </div>
 
     <div class="facility-type-list-section">
       <div
@@ -91,7 +132,7 @@ onMounted(() => {
         class="facility-type-item"
         @click="handleFacilityTypeClick(item)"
       >
-        <img :src="item.icon" :alt="item.alt" class="facility-type-icon" />
+        <img :src="item.icon" :alt="item.alt" />
         <p class="facility-type-name">{{ item.name }}</p>
       </div>
     </div>
@@ -162,9 +203,6 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-}
-
-.facility-type-icon {
 }
 
 .facility-type-name {
