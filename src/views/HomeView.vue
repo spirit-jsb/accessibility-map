@@ -14,6 +14,10 @@ const handleNavigateToVisualMap = () => {
 const handleNavigateToSpeechMap = () => {
   emit('navigateToSpeechMap')
 }
+
+const handleICPClick = () => {
+  window.open('https://beian.miit.gov.cn/', '_blank')
+}
 </script>
 
 <template>
@@ -32,6 +36,10 @@ const handleNavigateToSpeechMap = () => {
         <img :src="speechMap" alt="语音地图" class="function-icon" />
         <p class="function-name">语音地图</p>
       </div>
+    </div>
+
+    <div class="icp-section">
+      <a href="#" @click.prevent="handleICPClick" class="icp-label">苏ICP备2025207409号</a>
     </div>
   </div>
 </template>
@@ -91,5 +99,20 @@ const handleNavigateToSpeechMap = () => {
   font-weight: bold;
   font-size: 20px;
   text-align: center;
+}
+
+.icp-section {
+  display: flex;
+  position: absolute;
+  right: 0;
+  bottom: calc(env(safe-area-inset-bottom, 34px) + 16px);
+  left: 0;
+  justify-content: center;
+}
+
+.icp-label {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 18px;
 }
 </style>
