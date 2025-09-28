@@ -344,7 +344,7 @@ onUnmounted(async () => {
   display: flex;
   position: absolute;
   right: 12px;
-  bottom: calc(env(safe-area-inset-bottom) + 44px + 16px);
+  bottom: calc(env(safe-area-inset-bottom, 34px) + 16px);
   left: 12px;
   justify-content: space-between;
   gap: 16px;
