@@ -8,7 +8,7 @@ class DataLoader {
     this.staticPath = API_CONFIG.STATIC.BASE_PATH
   }
 
-  async loadFromeAPI(endpoint) {
+  async loadFromAPI(endpoint) {
     try {
       return await httpClient.get(endpoint)
     } catch (error) {
