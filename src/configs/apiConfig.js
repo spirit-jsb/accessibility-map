@@ -19,7 +19,7 @@ export const API_CONFIG = {
   },
 
   STATIC: {
-    BASE_PATH: '/data',
+    BASE_PATH: 'data',
     ENDPOINTS: {
       FACILITY_CATEGORIES: '/accessibility/facility-categories.json',
       LABOR_PARK_FACILITY_TYPES: '/accessibility/labor-park-facility-types.json',
