@@ -111,16 +111,14 @@ const displayNavigationRoute = (start, end, route) => {
       }
     }
 
-    const endMarkerContent = document.createElement('img')
-    endMarkerContent.src = endMarkerIcon
-
-    amapService.addMarker(end, { content: endMarkerContent })
-
-    const userMarkerContent = document.createElement('img')
-    userMarkerContent.src = userMarkerIcon
+    amapService.addMarker(end, {
+      icon: endMarkerIcon,
+      zIndex: 100,
+    })
 
     userMarker.value = amapService.addMarker(currentUserLocation.value, {
-      content: userMarkerContent,
+      icon: userMarkerIcon,
+      zIndex: 101,
     })
 
     amapService.map.setCenter(start)
