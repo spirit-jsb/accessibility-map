@@ -373,27 +373,32 @@ class AmapService {
     }
   }
 
-  async convertCoordinate(longitude, latitude) {
+  async convertCoordinates(coordinates) {
     if (!this.amap) {
       await this.loadAMapAPI()
     }
 
+    const convertedCoordinates = coordinates.map(
+      (coordinate) => new this.amap.LngLat(coordinate.longitude, coordinate.latitude),
+    )
+
     return new Promise((resolve, reject) => {
       try {
-        this.amap.convertFrom([longitude, latitude], 'gps', (status, result) => {
+        this.amap.convertFrom(convertedCoordinates, 'gps', (status, result) => {
           if (status === 'complete' && result.info === 'ok') {
-            const convertedResult = [result.locations[0].lng, result.locations[0].lat]
+            const convertedResult = result.locations.map((location) => ({
+              longitude: location.lng,
+              latitude: location.lat,
+            }))
             resolve(convertedResult)
           } else {
-            console.warn('坐标系转换错误：', result.info)
-            const convertedResult = this.manualConvertCoordinate(longitude, latitude)
-            resolve(convertedResult)
+            console.error('坐标系转换失败：', result.info)
+            reject(new Error(`坐标系转换失败：${result.info}`))
           }
         })
       } catch (error) {
-        console.error('坐标系转换错误：', error)
-        const convertedResult = this.manualConvertCoordinate(longitude, latitude)
-        resolve(convertedResult)
+        console.error('坐标系转换失败：', error)
+        reject(new Error(`坐标系转换失败：${error.message}`))
       }
     })
   }
@@ -481,6 +486,8 @@ class AmapService {
       console.error('高德地图 JS API 未加载')
       return 0
     }
+
+    console.log('Calculating distance between points:', point1, point2)
 
     const lngLat1 = new this.amap.LngLat(point1[0], point1[1])
     const lngLat2 = new this.amap.LngLat(point2[0], point2[1])

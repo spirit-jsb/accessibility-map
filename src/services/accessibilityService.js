@@ -88,28 +88,6 @@ class AccessibilityService {
         useCache,
       )
 
-      if (data && data.data && data.data.facilities) {
-        for (const facility of data.data.facilities) {
-          if (facility.location && facility.location.latitude && facility.location.longitude) {
-            try {
-              const [convertedLongitude, convertedLatitude] = await amapService.convertCoordinate(
-                facility.location.longitude,
-                facility.location.latitude,
-              )
-
-              facility.location.longitude = convertedLongitude
-              facility.location.latitude = convertedLatitude
-            } catch (error) {
-              console.warn(`设施${facility.name}坐标转换失败`)
-            }
-          } else {
-            console.log(`设施${facility.name}没有有效的坐标数据`)
-          }
-        }
-      } else {
-        console.log('未找到有效的设施数据或设施列表为空')
-      }
-
       return {
         success: true,
         data: data,
