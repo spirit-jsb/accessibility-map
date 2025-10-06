@@ -316,7 +316,7 @@ const restartNavigation = async (position) => {
 }
 
 const startListeningDeviceOrientation = () => {
-  amapService.startListening((deviceOrientation, error) => {
+  amapService.startListeningDeviceOrientation((deviceOrientation, error) => {
     if (error) {
       console.error('开始监听设备方向失败：', error)
       return
