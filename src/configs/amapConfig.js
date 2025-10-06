@@ -5,7 +5,7 @@ export const AMAP_CONFIG = {
 
   VERSION: '2.0',
 
-  PLUGINS: ['AMap.Geolocation', 'AMap.ToolBar', 'AMap.Scale', 'AMap.Walking', 'AMap.Geocoder'],
+  PLUGINS: ['AMap.Geolocation', 'AMap.Walking'],
 
   MAP: {
     DEFAULT_ZOOM: 18,
