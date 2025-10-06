@@ -35,7 +35,7 @@ const nearbyFacilities = computed(() => {
 
       const distance = amapService.calculateDistance(
         [userLocation.value.longitude, userLocation.value.latitude],
-        [facility.location.longitude, facility.location.latitude],
+        [facility.location.gcj02.longitude, facility.location.gcj02.latitude],
       )
 
       return {
@@ -74,18 +74,6 @@ const fetchFacilitiesData = async () => {
     if (!facilityTypesResult.success) throw new Error(facilityTypesResult.message)
     if (!facilityIconMappingsResult.success) throw new Error(facilityIconMappingsResult.message)
     if (!facilitiesResult.success) throw new Error(facilitiesResult.message)
-
-    const facilityCoordinates = facilitiesResult.data.data.facilities.map((facility) => ({
-      longitude: facility.location.longitude,
-      latitude: facility.location.latitude,
-    }))
-
-    const convertedFacilityCoordinates = await amapService.convertCoordinates(facilityCoordinates)
-
-    convertedFacilityCoordinates.forEach((coordinate, index) => {
-      facilitiesResult.data.data.facilities[index].location.longitude = coordinate.longitude
-      facilitiesResult.data.data.facilities[index].location.latitude = coordinate.latitude
-    })
 
     const facilityTypes = facilityTypesResult.data.data.facility_types || []
     facilityType.value = facilityTypes.find((type) => type.id === props.facilityTypeId)

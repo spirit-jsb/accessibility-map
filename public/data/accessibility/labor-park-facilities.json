@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "created_at": "2025-09-02T00:00:00+08:00",
-  "updated_at": "2025-09-14T00:00:00+08:00",
+  "updated_at": "2025-10-14T00:00:00+08:00",
   "data": {
     "facilities": [
       {
@@ -11,7 +11,10 @@
         "name": "劳动公园南门",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.654483, "longitude": 109.868958 },
+        "location": {
+          "wgs84": { "latitude": 40.654483, "longitude": 109.868958 },
+          "gcj02": { "latitude": 40.65559, "longitude": 109.87461 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -23,7 +26,10 @@
         "name": "劳动公园东门",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.65729, "longitude": 109.875851 },
+        "location": {
+          "wgs84": { "latitude": 40.65729, "longitude": 109.875851 },
+          "gcj02": { "latitude": 40.658391, "longitude": 109.881493 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -35,7 +41,10 @@
         "name": "劳动公园北门",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.661501, "longitude": 109.868707 },
+        "location": {
+          "wgs84": { "latitude": 40.661501, "longitude": 109.868707 },
+          "gcj02": { "latitude": 40.662613, "longitude": 109.87436 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -47,7 +56,10 @@
         "name": "爱心共享辅具空间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.654538, "longitude": 109.869141 },
+        "location": {
+          "wgs84": { "latitude": 40.654538, "longitude": 109.869141 },
+          "gcj02": { "latitude": 40.655645, "longitude": 109.874792 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -59,7 +71,10 @@
         "name": "全景导览图",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.654796, "longitude": 109.869299 },
+        "location": {
+          "wgs84": { "latitude": 40.654796, "longitude": 109.869299 },
+          "gcj02": { "latitude": 40.655903, "longitude": 109.87495 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -71,7 +86,10 @@
         "name": "爱心驿站及文化长廊",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.655456, "longitude": 109.870603 },
+        "location": {
+          "wgs84": { "latitude": 40.655456, "longitude": 109.870603 },
+          "gcj02": { "latitude": 40.656561, "longitude": 109.876252 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -83,7 +101,10 @@
         "name": "名人语录介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.655525, "longitude": 109.870162 },
+        "location": {
+          "wgs84": { "latitude": 40.655525, "longitude": 109.870162 },
+          "gcj02": { "latitude": 40.656631, "longitude": 109.875812 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -95,7 +116,10 @@
         "name": "名人语录介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.65627, "longitude": 109.86994 },
+        "location": {
+          "wgs84": { "latitude": 40.65627, "longitude": 109.86994 },
+          "gcj02": { "latitude": 40.657377, "longitude": 109.87559 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -107,7 +131,10 @@
         "name": "名人语录介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.656197, "longitude": 109.870603 },
+        "location": {
+          "wgs84": { "latitude": 40.656197, "longitude": 109.870603 },
+          "gcj02": { "latitude": 40.657303, "longitude": 109.876252 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -119,7 +146,10 @@
         "name": "植物科普介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.655528, "longitude": 109.870234 },
+        "location": {
+          "wgs84": { "latitude": 40.655528, "longitude": 109.870234 },
+          "gcj02": { "latitude": 40.656634, "longitude": 109.875884 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -131,7 +161,10 @@
         "name": "植物科普介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.65552, "longitude": 109.870082 },
+        "location": {
+          "wgs84": { "latitude": 40.65552, "longitude": 109.870082 },
+          "gcj02": { "latitude": 40.656626, "longitude": 109.875732 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -143,7 +176,10 @@
         "name": "植物科普介绍装置",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.655526, "longitude": 109.869904 },
+        "location": {
+          "wgs84": { "latitude": 40.655526, "longitude": 109.869904 },
+          "gcj02": { "latitude": 40.656632, "longitude": 109.875554 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -155,7 +191,10 @@
         "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.6553, "longitude": 109.870072 },
+        "location": {
+          "wgs84": { "latitude": 40.6553, "longitude": 109.870072 },
+          "gcj02": { "latitude": 40.656406, "longitude": 109.875722 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -167,7 +206,10 @@
         "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.656116, "longitude": 109.872221 },
+        "location": {
+          "wgs84": { "latitude": 40.656116, "longitude": 109.872221 },
+          "gcj02": { "latitude": 40.65722, "longitude": 109.877868 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -179,7 +221,10 @@
         "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.658197, "longitude": 109.873479 },
+        "location": {
+          "wgs84": { "latitude": 40.658197, "longitude": 109.873479 },
+          "gcj02": { "latitude": 40.659301, "longitude": 109.879124 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -191,7 +236,10 @@
         "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.659314, "longitude": 109.870962 },
+        "location": {
+          "wgs84": { "latitude": 40.659314, "longitude": 109.870962 },
+          "gcj02": { "latitude": 40.660422, "longitude": 109.876611 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -203,7 +251,10 @@
         "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.661275, "longitude": 109.869637 },
+        "location": {
+          "wgs84": { "latitude": 40.661275, "longitude": 109.869637 },
+          "gcj02": { "latitude": 40.662386, "longitude": 109.875288 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -215,7 +266,10 @@
         "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.659876, "longitude": 109.868796 },
+        "location": {
+          "wgs84": { "latitude": 40.659876, "longitude": 109.868796 },
+          "gcj02": { "latitude": 40.660987, "longitude": 109.874449 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }
@@ -227,7 +281,10 @@
         "name": "无障碍卫生间",
         "description": "",
         "is_active": true,
-        "location": { "latitude": 40.656854, "longitude": 109.866657 },
+        "location": {
+          "wgs84": { "latitude": 40.656854, "longitude": 109.866657 },
+          "gcj02": { "latitude": 40.657965, "longitude": 109.872313 }
+        },
         "accessibility": {
           "screen_reader_text": ""
         }

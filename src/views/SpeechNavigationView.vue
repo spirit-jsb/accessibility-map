@@ -44,7 +44,7 @@ const currentInstruction = computed(() => {
 const startNavigation = async () => {
   try {
     const start = [props.userLocation.longitude, props.userLocation.latitude]
-    const end = [props.facility.location.longitude, props.facility.location.latitude]
+    const end = [props.facility.location.gcj02.longitude, props.facility.location.gcj02.latitude]
 
     const route = await amapService.planningWalkingRoute(start, end)
 
@@ -89,7 +89,10 @@ const updateNavigation = (position) => {
   }
 
   const userLocation = [position.longitude, position.latitude]
-  const endLocation = [props.facility.location.longitude, props.facility.location.latitude]
+  const endLocation = [
+    props.facility.location.gcj02.longitude,
+    props.facility.location.gcj02.latitude,
+  ]
 
   const remainingDistance = amapService.calculateDistance(userLocation, endLocation)
   navigationStats.value.remainingDistance = remainingDistance
@@ -189,7 +192,7 @@ const checkRouteDeviation = (position) => {
 const restartNavigation = async (position) => {
   try {
     const start = [position.longitude, position.latitude]
-    const end = [props.facility.location.longitude, props.facility.location.latitude]
+    const end = [props.facility.location.gcj02.longitude, props.facility.location.gcj02.latitude]
 
     const newRoute = await amapService.planningWalkingRoute(start, end)
 
