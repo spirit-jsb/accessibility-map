@@ -482,17 +482,33 @@ class AmapService {
   }
 
   calculateDistance(point1, point2) {
-    if (!this.amap) {
-      console.error('高德地图 JS API 未加载')
-      return 0
-    }
+    const longitude1 = point1[0]
+    const latitude1 = point1[1]
 
-    console.log('Calculating distance between points:', point1, point2)
+    const longitude2 = point2[0]
+    const latitude2 = point2[1]
 
-    const lngLat1 = new this.amap.LngLat(point1[0], point1[1])
-    const lngLat2 = new this.amap.LngLat(point2[0], point2[1])
+    // 地球半径(千米)
+    const R = 6371
 
-    return Math.round(lngLat1.distance(lngLat2))
+    // 将经纬度转换为弧度
+    const dLatitude = ((latitude2 - latitude1) * Math.PI) / 180 // 纬度差
+    const dLongitude = ((longitude2 - longitude1) * Math.PI) / 180 // 经度差
+
+    // Haversine 公式计算
+    const a =
+      Math.sin(dLatitude / 2) * Math.sin(dLatitude / 2) + // 纬度差的正弦平方
+      Math.cos((latitude1 * Math.PI) / 180) * // 起点纬度的余弦
+        Math.cos((latitude2 * Math.PI) / 180) * // 终点纬度的余弦
+        Math.sin(dLongitude / 2) * // 经度差的正弦
+        Math.sin(dLongitude / 2) // 经度差的正弦
+
+    // 计算大圆距离
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+    // 将距离从千米转换为米
+    const distance = R * c
+    return distance * 1000
   }
 
   speak(text, options = {}) {
