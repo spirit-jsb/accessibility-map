@@ -1,10 +1,10 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
-import endMarkerIcon from '../assets/images/end-marker.svg'
+import endMarkerImage from '../assets/images/end-marker.svg'
 import exitNavigation from '../assets/images/exit-navigation.svg'
 import overviewNavigation from '../assets/images/overview-navigation.svg'
-import userMarkerIcon from '../assets/images/user-marker.svg'
+import userMarkerImage from '../assets/images/user-marker.svg'
 import walkingNavigationIndicator from '../assets/images/walking-navigation-indicator.svg'
 import { amapService } from '../services/amapService'
 
@@ -111,9 +111,30 @@ const displayNavigationRoute = (start, end, route) => {
       }
     }
 
+    const userMarkerIcon = new AMap.Icon({
+      size: new AMap.Size(36, 36),
+      image: userMarkerImage,
+      imageSize: new AMap.Size(36, 36),
+    })
+
+    userMarker.value = amapService.addMarker(start, {
+      icon: userMarkerIcon,
+      zIndex: 101,
+      offset: new AMap.Pixel(-18, -36),
+      anchor: 'top-left',
+    })
+
+    const endMarkerIcon = new AMap.Icon({
+      size: new AMap.Size(36, 36),
+      image: endMarkerImage,
+      imageSize: new AMap.Size(36, 36),
+    })
+
     amapService.addMarker(end, {
       icon: endMarkerIcon,
       zIndex: 100,
+      offset: new AMap.Pixel(-18, -36),
+      anchor: 'top-left',
     })
 
     userMarker.value = amapService.addMarker(currentUserLocation.value, {
@@ -186,13 +207,17 @@ const updateUserMarker = (position) => {
       }
     }
 
-    const userMarkerContent = document.createElement('img')
-    userMarkerContent.src = userMarkerIcon
+    const userMarkerIcon = new AMap.Icon({
+      size: new AMap.Size(36, 36),
+      image: userMarkerImage,
+      imageSize: new AMap.Size(36, 36),
+    })
 
     userMarker.value = amapService.addMarker(position, {
-      content: userMarkerContent,
-      anchor: 'center',
+      icon: userMarkerIcon,
       zIndex: 101,
+      offset: new AMap.Pixel(-18, -36),
+      anchor: 'top-left',
     })
 
     amapService.map.setCenter(position)
