@@ -105,7 +105,7 @@ const handleICPClick = () => {
   display: flex;
   position: absolute;
   right: 0;
-  bottom: calc(env(safe-area-inset-bottom, 34px) + 16px);
+  bottom: calc(env(safe-area-inset-bottom) + 16px);
   left: 0;
   justify-content: center;
 }

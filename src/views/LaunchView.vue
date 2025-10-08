@@ -14,7 +14,9 @@ import logo from '../assets/images/logo.svg'
       <p class="large-text">我们要高度重视</p>
     </div>
 
-    <p class="copyright-text">Copyright © 2025 曦曦の聴感不良. 保留所有权利。</p>
+    <div class="copyright-section">
+      <a class="copyright-label">Copyright © 2025 曦曦の聴感不良. 保留所有权利。</a>
+    </div>
   </div>
 </template>
 
@@ -71,11 +73,18 @@ import logo from '../assets/images/logo.svg'
   font-size: 30px;
 }
 
-.copyright-text {
-  margin: auto auto calc(env(safe-area-inset-bottom, 34px) + 12px) auto;
+.copyright-section {
+  display: flex;
+  position: absolute;
+  right: 0;
+  bottom: calc(env(safe-area-inset-bottom) + 16px);
+  left: 0;
+  justify-content: center;
+}
+
+.copyright-label {
   color: #ffffff;
   font-weight: bold;
-  font-size: 14px;
-  text-align: center;
+  font-size: 15x;
 }
 </style>

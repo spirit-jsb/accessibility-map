@@ -195,7 +195,7 @@ onUnmounted(() => {
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(4, 1fr);
   gap: 12px 0;
-  padding: 12px 0 calc(env(safe-area-inset-bottom, 34px) + 12px) 0;
+  padding: 12px 0 calc(env(safe-area-inset-bottom) + 12px);
 }
 
 .facility-type-item {

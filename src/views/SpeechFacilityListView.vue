@@ -184,7 +184,7 @@ onUnmounted(() => {
 
 .scrollable-section {
   flex: 1;
-  padding: 0 0 calc(env(safe-area-inset-bottom, 34px)) 0;
+  padding: 0 0 calc(env(safe-area-inset-bottom)) 0;
   overflow-y: auto;
 }
 
