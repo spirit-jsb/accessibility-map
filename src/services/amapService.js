@@ -9,15 +9,12 @@ class AmapService {
     this.geolocation = null
     this.walking = null
 
-    this.geolocationCompleteListener = null
-    this.geolocationErrorListener = null
-
     this.speechSynthesis = window.speechSynthesis
 
     this.currentPosition = null
     this.currentDeviceOrientation = null
 
-    this.listeningId = null
+    this.intervalListeningId = null
 
     this.deviceOrientationListener = null
 
@@ -154,11 +151,16 @@ class AmapService {
   }
 
   async listeningPosition(callback, options = {}) {
-    if (!this.amap) {
-      await this.loadAMapAPI()
-    }
-
     const mode = options.mode || 'normal' // 'navigation', 'normal', 'power-saving'
+
+    const listeningInterval =
+      options.mode === 'navigation'
+        ? 5000
+        : options.mode === 'normal'
+          ? 10000
+          : options.mode === 'power-saving'
+            ? 15000
+            : 5000
 
     const listeningThreshold =
       options.mode === 'navigation'
@@ -171,57 +173,40 @@ class AmapService {
 
     this.clearPositionListener()
 
+    this.intervalListeningId = setInterval(async () => {
+      try {
+        const listeningPosition = await this.getCurrentPosition({
+          showCircle: mode !== 'navigation',
+          showMarker: mode !== 'navigation',
+          panToLocation: mode !== 'navigation',
+          ...options,
+        })
+
+        if (this.shouldUpdatePosition(listeningPosition, listeningThreshold)) {
+          this.currentPosition = listeningPosition
+
+          callback(listeningPosition, null)
+        }
+      } catch (error) {
+        console.error('监听位置获取失败：', error)
+        callback(null, new Error(`监听位置获取失败：${error.message}`))
+      }
+    }, listeningInterval)
+
     try {
-      this.geolocation = new this.amap.Geolocation({
-        convert: AMAP_CONFIG.GEOLOCATION.CONVERT,
-        enableHighAccuracy: AMAP_CONFIG.GEOLOCATION.ENABLE_HIGH_ACCURACY,
-        timeout: AMAP_CONFIG.GEOLOCATION.TIMEOUT,
-        maximumAge: AMAP_CONFIG.GEOLOCATION.MAXIMUM_AGE,
-        showButton: AMAP_CONFIG.GEOLOCATION.SHOW_BUTTON,
+      const initialPosition = await this.getCurrentPosition({
         showCircle: mode !== 'navigation',
         showMarker: mode !== 'navigation',
         panToLocation: mode !== 'navigation',
-        zoomToAccuracy: AMAP_CONFIG.GEOLOCATION.ZOOM_TO_ACCURACY,
-        needAddress: AMAP_CONFIG.GEOLOCATION.NEED_ADDRESS,
         ...options,
       })
 
-      // 添加成功和失败事件监听
-      this.geolocationCompleteListener = this.amap.Event.addListener(
-        this.geolocation,
-        'complete',
-        (result) => {
-          const listeningPosition = {
-            longitude: result.position.lng,
-            latitude: result.position.lat,
-            accuracy: result.accuracy,
-            addressComponent: result.addressComponent,
-            address: result.formattedAddress,
-          }
+      this.currentPosition = initialPosition
 
-          if (this.shouldUpdatePosition(listeningPosition, listeningThreshold)) {
-            this.currentPosition = listeningPosition
-
-            console.log('监听位置获取成功：', listeningPosition)
-            callback(listeningPosition, null)
-          }
-        },
-      )
-
-      this.geolocationErrorListener = this.amap.Event.addListener(
-        this.geolocation,
-        'error',
-        (error) => {
-          console.error('监听位置获取失败：', error)
-          callback(null, new Error(`监听位置获取失败：${error.message}`))
-        },
-      )
-
-      // 开始持续定位监听
-      this.listeningId = this.geolocation.watchPosition()
+      callback(initialPosition, null)
     } catch (error) {
-      console.error('监听位置获取失败：', error)
-      callback(null, new Error(`监听位置获取失败：${error.message}`))
+      console.error('初始位置获取失败：', error)
+      callback(null, new Error(`初始位置获取失败：${error.message}`))
     }
   }
 
@@ -239,25 +224,9 @@ class AmapService {
   }
 
   clearPositionListener() {
-    if (this.geolocation && this.listeningId) {
-      try {
-        this.geolocation.clearWatch(this.listeningId)
-        console.log('清除位置监听器成功：', this.listeningId)
-
-        this.listeningId = null
-      } catch (error) {
-        console.error('清除位置监听器失败：', error)
-      }
-    }
-
-    if (this.amap && this.geolocationCompleteListener) {
-      this.amap.Event.removeListener(this.geolocationCompleteListener)
-      this.geolocationCompleteListener = null
-    }
-
-    if (this.amap && this.geolocationErrorListener) {
-      this.amap.Event.removeListener(this.geolocationErrorListener)
-      this.geolocationErrorListener = null
+    if (this.intervalListeningId) {
+      clearInterval(this.intervalListeningId)
+      this.intervalListeningId = null
     }
   }
 
