@@ -10,12 +10,13 @@ export default defineConfig(({ mode }) => {
   }
 
   if (mode === 'development') {
+    config.base = '/dev/accessibility-map/'
     config.server = {
       https: true,
       host: true,
     }
   } else if (mode === 'test') {
-    config.base = '/dev/accessibility-map/'
+    config.base = '/test/accessibility-map/'
   } else if (mode === 'production') {
     config.base = '/accessibility-map/'
   }
